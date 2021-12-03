@@ -1,0 +1,8 @@
+npm install bcryptjs cookie-parser cors csurf express express-async-handler express-validator faker helmet jsonwebtoken morgan per-env pg@">=8.4.1" sequelize@5 sequelize-cli@5 
+npm install -D dotenv-cli nodemon
+
+Run openssl rand -base64 10 to generate a random JWT secret.
+
+npx sequelize init
+psql -c "CREATE USER auth_app PASSWORD 'password' CREATEDB;"
+npx dotenv sequelize db:create
