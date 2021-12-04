@@ -7,4 +7,12 @@ router.get('/hello/world', function(req, res) {
   res.send('Hello World!');
 });
 
+const apiRouter = require('./api');
+
+router.use('/api', apiRouter);
+
+
 module.exports = router;
+
+
+//jwyJbkfy-3QGOTAOzV_alDcDxzNaHxkYL8fA
