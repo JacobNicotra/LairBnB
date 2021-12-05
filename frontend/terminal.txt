@@ -1,2 +1,0 @@
-npx create-react-app . --template @appacademy/react-redux-v17 --use-npm
-npm install js-cookie
