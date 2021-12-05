@@ -32,6 +32,41 @@ export const login = (user) => async (dispatch) => {
 }; //  to test: window.store.dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password' }))
 //Example Session Actions and Reducer
 
+export const restoreUser = () => async dispatch => {
+  const response = await csrfFetch('/api/session');
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+}; // test: window.store.dispatch(window.sessionActions.restoreUser());
+
+export const signup = (user) => async (dispatch) => {
+  const { username, email, password } = user;
+  const response = await csrfFetch("/api/users", {
+    method: "POST",
+    body: JSON.stringify({
+      username,
+      email,
+      password,
+    }),
+  });
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+}; // test: //window.store.dispatch(window.sessionActions.signup({
+//   username: 'NewUser',
+//   email: 'new@user.io',
+//   password: 'password'
+// }));
+
+export const logout = () => async (dispatch) => {
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE',
+  });
+  dispatch(removeUser());
+  return response;
+}; // test: window.store.dispatch(window.sessionActions.logout());
+
+
 
 
 const initialState = { user: null };
