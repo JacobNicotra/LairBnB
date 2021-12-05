@@ -7,9 +7,9 @@ router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
 
-router.post('/test', (req, res) => {
-  res.json({ requestBody: req.body });
-});
+// router.post('/test', (req, res) => {
+//   res.json({ requestBody: req.body });
+// });
  
 // -=-=-=-=-=-=-=-=- testing the user auth middleware routes: -=-=-=-=-=-=-=-=-
 // // GET /api/set-token-cookie
