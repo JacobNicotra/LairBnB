@@ -2,7 +2,7 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot } = require('../../db/models');
+const { Spot, Picture } = require('../../db/models');
 
 // ...
 // const { check } = require('express-validator');
@@ -11,9 +11,22 @@ const { Spot } = require('../../db/models');
 
 const router = express.Router();
 
-router.get('/', asyncHandler(async function(_req, res) {
+router.get('/', asyncHandler(async function (_req, res) {
   const spots = await Spot.findAll();
-  console.log('----------------------------------------------------------------------- the spots: ', spots)
+  const findPics = async (spot) => { 
+     return await Picture.findAll({
+    where: {
+      spotId: spot.id
+    }
+  })
+  }
+  for (const spot of spots) {
+    const pics = await findPics(spot)
+    spot.dataValues.pictures = pics
+    
+    // console.log('----------------------------------------------------------------------- the pics: ',spot.id, spot)
+  }
+  // console.log(spots)
   return res.json(spots);
 }));
 

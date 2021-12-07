@@ -12,6 +12,8 @@ export const getSpots = () => async (dispatch) => {
 
   if (response.ok) {
     const list = await response.json();
+
+    // console.log('list',list)
     dispatch(load(list));
   }
 };
@@ -36,7 +38,7 @@ const spotReducer = (state = initialState, action) => {
       action.list.forEach((spot) => {
         allSpots[spot.id] = spot;
       });
-      console.log('---------------------------- allSpots --', allSpots)
+      // console.log('---------------------------- allSpots --', allSpots)
       return {
         ...allSpots
         // ...allSpots,

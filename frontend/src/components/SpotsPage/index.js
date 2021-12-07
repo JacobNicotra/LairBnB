@@ -10,7 +10,7 @@ function SpotBrowser() {
   const spots = useSelector(state => {
     // console.log('state', Object.values(state.spot))
     // console.log('state', state.spot.list.map)
-    console.log('state.spot', state.spot)
+    // console.log('state.spot', state.spot)
     return Object.values(state.spot);
   });
   // console.log('SOPTS', spots)
@@ -26,6 +26,7 @@ function SpotBrowser() {
     return null;
   }
 
+  // console.log('000000', spots[0].pictures[1])//.pictures.picture)
   return (
     <main>
       <h1>some spots here</h1>
@@ -35,7 +36,21 @@ function SpotBrowser() {
             <li key={spot.id}> <div>
               <div>{spot.title}</div>
               <div>{spot.description}</div>
-              <div>pictures</div>
+              {/* <div>{spot.pictures && spot.pictures}</div> */}
+              {/* <div>{spot.pictures && <img src={spot.pictures[0].picture} alt="listing" />}</div> */}
+              <div><ul>
+                {
+                  (spot.pictures && spot.pictures.map((picture) => {
+                    console.log(picture)
+                    if (picture.id == spot.pictures[0].id) {
+                      return (
+                        <li key={picture.id}> <img src={picture.picture} alt="listing" /></li >
+                      )
+
+                    }
+                  }))
+                }
+              </ul></div>
             </div>  </ li>
           );
         })}
