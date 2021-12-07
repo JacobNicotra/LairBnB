@@ -12,12 +12,12 @@ const { Spot } = require('../../db/models');
 const router = express.Router();
 
 router.get('/', asyncHandler(async function(_req, res) {
-  const spots = await spots.findAll();
-  console.log('the spots: ', spots)
+  const spots = await Spot.findAll();
+  console.log('----------------------------------------------------------------------- the spots: ', spots)
   return res.json(spots);
 }));
 
-
+//delete this
 
 // Sign up
 // router.post(
