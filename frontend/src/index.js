@@ -10,7 +10,7 @@ import { ModalProvider } from "./context/Modal";
 import configureStore from "./store";
 import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from "./store/session";
-import { getSpots } from "./store/spot";
+import { getSpots, deleteSpot } from "./store/spot";
 
 const store = configureStore();
 
@@ -21,6 +21,7 @@ if (process.env.NODE_ENV !== "production") {
   window.store = store;
   window.sessionActions = sessionActions;
   window.getSpots = getSpots
+  window.deleteSpot = deleteSpot
 }
 
 function Root() {

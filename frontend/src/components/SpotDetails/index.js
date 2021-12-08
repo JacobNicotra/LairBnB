@@ -1,33 +1,90 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getSpots } from '../../store/spot'
+import { getSpots, deleteSpot } from '../../store/spot'
 
 function SpotDetailer() {
+
+  // NEED TO TRIGGER RERENDER OF THIS COMPONENT WHEN after log out
+  const history = useHistory();
   const dispatch = useDispatch();
   const { spotId } = useParams()
-  
 
+  const [owner, setOwner] = useState(false)
+
+  let stater;
   const spots = useSelector(state => {
-    console.log("STATE DETAILS", state)
+    stater = state
+    // console.log("----------------SELECTOR state", state?.spot)
+    // console.log("---------------- state.spot", state.spot)
+    
     return state.spot;
+  });
+  // console.log("----------------OUTsIDE state", stater?.spot)
+
+  const spot = spots[spotId]
+  // console.log('OUTSIDE spots', spots)
+
+
+  const userId = useSelector(state => {
+    // console.log("STATE USER", state.session.user)
+    return state?.session?.user?.id
+
   });
 
   useEffect(() => {
+    // console.log("-----------------UseEffect state", stater?.spot)
+
+
+    // console.log('userId', userId)
+    // console.log('INSIDE spots', spots)
+
     dispatch(getSpots());
+    // if (userId && userId === spot?.userId) {
+    //   // console.log('logged in !!!!!!!')
+    //   return setOwner(true)
+    // } //else setOwner(false)
   }, [dispatch]);
 
-  
-  const spot = spots[spotId]
-  console.log('spots ', spots)
-  console.log('id: ', spotId, spot)// spot.title)
-  console.log("TITLE", spot?.title)
-  
+  useEffect(() => {
+    // console.log("-----------------UseEffect state", stater?.spot)
+
+
+    // console.log('userId', userId)
+    // console.log('INSIDE spots', spots)
+
+    if (userId && userId === spot?.userId) {
+      // console.log('logged in !!!!!!!')
+      return setOwner(true)
+    } else setOwner(false)
+  }, [dispatch, userId, stater.spot]);
+
+
+  // console.log('spots ', spots)
+  // console.log('id: ', spotId, spot)// spot.title)
+  // console.log("TITLE", spot?.title)
+
+
+  const handleDelete = (e) => {
+    // if (userId === )
+    // console.log('userId ', typeof userId, 'spotId', typeof +spotId)
+
+    // if (userId === +spotId) {
+    const deletedSpot = dispatch(deleteSpot(spotId))
+    if (deleteSpot) {
+      history.push(`/spots`);
+    }
+    // }
+
+  }
+
+
   if (!spot) {
-    console.log('!no spots')
+    // console.log('!no spots')
     return null;
   }
   return (
@@ -42,6 +99,9 @@ function SpotDetailer() {
       }</ul></div>
       <div>{spot.description}</div>
       <div>pictues and thins</div>
+      <div>{(owner &&
+        <button onClick={handleDelete}>delete</button>)}  </div>
+
     </main>
   )
 

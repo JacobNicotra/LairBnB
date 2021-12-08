@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD = 'spots/LOAD';
 const ADD_ONE = 'spots/ADD_ONE';
+const DELETE_ONE = 'spots/DELETE_ONE';
 
 const load = (list) => ({
   type: LOAD,
@@ -15,19 +16,24 @@ const addOneSpot = (spot) => ({
   spot
 });
 
+const removeSpot = (spot) => ({
+  type: DELETE_ONE,
+  spot
+});
+
 export const createSpot = (data) => async (dispatch) => {
-  console.log('---------------------------------- b4');
+  console.log(' ---------------------------------- data', data);
 
   const response = await csrfFetch("/api/spots", {
     method: 'POST',
     body: JSON.stringify(data)
   });
-  
-  console.log('---------------------------------- res',response);
+
+  // console.log( ' ---------------------------------- res', response);
   if (response.ok) {
-    console.log('res is ok')
+    // console.log('res is ok')
     const spot = await response.json();
-    console.log('store', spot)
+    console.log(' ---------------------------------- store', spot)
     // console.log('state', state)
     dispatch(addOneSpot(spot));
     return spot;
@@ -45,37 +51,57 @@ export const getSpots = () => async (dispatch) => {
   }
 };
 
+export const deleteSpot = spotId => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`, {
+    method: 'DELETE'
+
+  });
+  if (res.ok) {
+    const spot = await res.json()
+    // console.log('thunk spot', spot)
+    dispatch(removeSpot(spot))
+  }
+}
+
 const initialState = {
   list: [],
   types: []
 };
 
-// const sortList = (list) => {
-//   return list
-//     .sort((pokemonA, pokemonB) => {
-//       return pokemonA.no - pokemonB.no;
-//     })
-//     .map((pokemon) => pokemon.id);
-// };
+const sortList = (list) => {
+  return list
+    .sort((A, B) => {
+      return A.id - B.id;
+    })
+    .map((spot) => spot.id);
+};
 
 const spotReducer = (state = initialState, action) => {
+  // console.log('----------------------------------', action.type)
   switch (action.type) {
     case LOAD: {
+      // console.log(' ----------------------------------  action  ---------------------------------- ', action)
       const allSpots = {};
       action.list.forEach((spot) => {
         allSpots[spot.id] = spot;
       });
-      return {
+      const newState = {
+        ...allSpots,
         ...state,
-        ...allSpots
-        // ...allSpots,
-        // ...state,
-        // list: action.list
-      };
+        list: sortList(action.list)
+      }
+      // return {
+      //   ...state,
+      //   ...allSpots
+      //   // ...allSpots,
+      //   // ...state,
+      //   // list: action.list
+      // };
+      return newState
     }
     case ADD_ONE: {
       if (!state[action?.spot?.id]) {
-        console.log('action', action)
+        console.log(' ---------------------------------------------------------- ACTION IN REDUCER', action)
         const newState = {
           ...state,
           [action.spot.id]: action.spot
@@ -92,6 +118,15 @@ const spotReducer = (state = initialState, action) => {
           ...action.spot
         }
       };
+    }
+    case DELETE_ONE: {
+      const newState = { ...state }
+      console.log(' ----------------------------------------------------------reducer action', action)
+      // console.log('reducer action.spot', action.spot)
+      // console.log('reducer action.spot.id', action.spot.di)
+      console.log('newState', newState)
+      delete newState[action.spot.id]
+      return newState
     }
     default:
       return state;

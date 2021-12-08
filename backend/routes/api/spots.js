@@ -15,17 +15,17 @@ const router = express.Router();
 
 router.get('/', asyncHandler(async function (_req, res) {
   const spots = await Spot.findAll();
-  const findPics = async (spot) => { 
-     return await Picture.findAll({
-    where: {
-      spotId: spot.id
-    }
-  })
+  const findPics = async (spot) => {
+    return await Picture.findAll({
+      where: {
+        spotId: spot.id
+      }
+    })
   }
   for (const spot of spots) {
     const pics = await findPics(spot)
     spot.dataValues.pictures = pics
-    
+
   }
   return res.json(spots);
 }));
@@ -35,25 +35,64 @@ router.post(
   '/',
   spotValidations.validateCreate,
   asyncHandler(async function (req, res) {
-    console.log('Req.Body',req.body)
+    // console.log('Req.Body', req.body)
     // console.log('reqbody', req.body)
-    const pictures = req.body.pics
+    const incomingPictures = req.body.pics
     delete req.body.pics
     const spot = await Spot.create(req.body);
 
-    for (let key in pictures) {
-      console.log('-------THE PICS', pictures, pictures[key])
+    const pictures = []
+    for (let key in incomingPictures) {
+      // console.log('-------THE PICS', incomingPictures, incomingPictures[key])
       let newPic = {}
-      newPic.picture = pictures[key]
+      newPic.picture = incomingPictures[key]
       newPic.spotId = spot.id
-      console.log('newPic', newPic)
+      // console.log('newPic', newPic)
       let newPicDb = await Picture.create(newPic)
+      pictures.push(newPicDb)
     }
     // console.log('post creation', req.body)
     // console.log('pics', pictures)
+    spot.dataValues.pictures = pictures
+    console.log('api spot', spot)
     return res.json(spot);
   })
 );
+
+router.delete(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const spotId = req.params.id
+
+    console.log('spotId', spotId)
+
+    const spot = await Spot.findByPk(spotId)
+
+    // console.log('spot', spot)
+
+    const pics = await Picture.findAll({
+      where: {
+        spotId
+      }
+    })
+    // console.log('pics[0]', pics[0])
+
+    if (pics.length > 0) {
+
+      for (let pic of pics) {
+        console.log('pic: ', pic)
+        await pic.destroy()
+        console.log('---------------  pic dest')
+      }
+    }
+
+    await spot.destroy()
+
+    // console.log('spot destroyed')
+    // console.log('pics destroyed')
+    return res.json(spot)
+  })
+)
 
 
 //delete this

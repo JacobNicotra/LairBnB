@@ -9,7 +9,7 @@ import { NavLink, Route, useParams } from 'react-router-dom';
 function SpotBrowser() {
   const dispatch = useDispatch();
   const spots = useSelector(state => {
-    console.log("STATE BROWSER", state)
+    // console.log("STATE BROWSER", state)
     return Object.values(state.spot);
   });
   // const [errors, setErrors] = useState([]);
@@ -23,14 +23,14 @@ function SpotBrowser() {
     console.log('!no spots')
     return null;
   }
-console.log('spots',spots)
+// console.log('spots',spots)
   return (
     <main>
       <h1>some spots here</h1>
       <ul>
         {spots.map((spot) => {
           if (spot.id) {
-            console.log('object spot', spot)
+            // console.log('object spot', spot)
             
             return (
               <li key={spot.id}> <NavLink to={`/spot/${spot.id}`} >

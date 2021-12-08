@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSpot } from '../../store/spot'
 import { useHistory } from 'react-router-dom';
 import { restoreUser } from '../../store/session'
+import LoginFormModal from '../LoginFormModal'
 
 const CreatePokemonForm = ({ hideForm }) => {
   // const pokeTypes = useSelector(state => state.pokemon.types);
@@ -50,8 +51,16 @@ const CreatePokemonForm = ({ hideForm }) => {
   // }, [pokeTypes, type]);
 
   const handleSubmit = async (e) => {
-    // console.log(pics)
     e.preventDefault();
+    if (!userId) {
+      alert("Please Log In to Create a New Spot")
+      return (
+        <LoginFormModal />
+      )
+
+    }
+    console.log('---------------------------------------------------------- payload pics', pics)
+
     const payload = {
       title,
       description,
@@ -69,10 +78,10 @@ const CreatePokemonForm = ({ hideForm }) => {
   // https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpwW94OrHghgYQpK1htWKIhxJJ67qIlKX4Wg&usqp=CAU
 
   const picUpdater = (e, i) => {
-    console.log('target', e.target.value)
+    // console.log('target', e.target.value)
     let id = e.target.id
     setPics({ ...pics, [id]: e.target.value })
-    console.log('pics', pics)
+    // console.log('pics', pics)
     return pics
   }
 
