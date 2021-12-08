@@ -11,7 +11,7 @@ const CreatePokemonForm = ({ hideForm }) => {
 
   const userId = useSelector(state => {
     // console.log("STATE USER", state.session.user)
-    return state.session.user.id
+    return state?.session?.user?.id
   });
   // console.log(userId)
 
@@ -21,7 +21,7 @@ const CreatePokemonForm = ({ hideForm }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [numPics, setNumPics] = useState(1);
-  const [pics, setPics] = useState([]);
+  const [pics, setPics] = useState({});
   // const [exterior, setExterior] = useState(true);
   // const [count, setCount] = useState(0);
   // const [move1, setMove1] = useState('');
@@ -30,7 +30,8 @@ const CreatePokemonForm = ({ hideForm }) => {
   // const updateNo = (e) => setNo(e.target.value);
   const updateTitle = (e) => setTitle(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
-  const updateNumPics = () => {
+  const updateNumPics = (e) => {
+    e.preventDefault()
     setNumPics(numPics + 1)
   };
   // const updateExterior = () => setExterior(!exterior);
@@ -49,12 +50,13 @@ const CreatePokemonForm = ({ hideForm }) => {
   // }, [pokeTypes, type]);
 
   const handleSubmit = async (e) => {
+    // console.log(pics)
     e.preventDefault();
-
     const payload = {
       title,
       description,
-      userId
+      userId,
+      pics
     };
     // console.log('herererererer')
     const spot = await dispatch(createSpot(payload));
@@ -64,20 +66,32 @@ const CreatePokemonForm = ({ hideForm }) => {
     }
   };
 
- 
+  // https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpwW94OrHghgYQpK1htWKIhxJJ67qIlKX4Wg&usqp=CAU
+
+  const picUpdater = (e, i) => {
+    console.log('target', e.target.value)
+    let id = e.target.id
+    setPics({ ...pics, [id]: e.target.value })
+    console.log('pics', pics)
+    return pics
+  }
+
+
   let picInputs = [];
   for (let i = 0; i < numPics; i++) {
     // note: we are adding a key prop here to allow react to uniquely identify each
     // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
     picInputs.push(<span key={i}>
       <input
-      type="url"
-      placeholder="Picture"
-      pattern="https://.*"
+        type="url"
+        id={`picId-${i}`}
+        placeholder="Picture"
+        pattern="https://.*"
+        onBlur={picUpdater}
       />
-      </span>);
+    </span>);
   }
-    // console.log(picInputs)
+  // console.log(picInputs)
   return (
     <section className="new-form-holder centered middled">
       <h1>FORM</h1>
@@ -142,7 +156,7 @@ const CreatePokemonForm = ({ hideForm }) => {
             <option key={type}>{type}</option>
           )} */}
         {/* </select> */}
-        <button type="submit">Create new Pokemon</button>
+        <button type="submit">Create new Spot</button>
         {/* <button type="button" onClick={handleCancelClick}>Cancel</button> */}
       </form>
     </section>

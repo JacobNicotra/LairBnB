@@ -18,12 +18,8 @@ const addOneSpot = (spot) => ({
 export const createSpot = (data) => async (dispatch) => {
   console.log('---------------------------------- b4');
 
-  const response = await fetch(`/api/spots`, {
+  const response = await csrfFetch("/api/spots", {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      "XSRF-TOKEN": `qLRDIqUg-2T4I010E-d7IFFON9NZ0cXeZZ_w`
-    },
     body: JSON.stringify(data)
   });
   
@@ -39,7 +35,7 @@ export const createSpot = (data) => async (dispatch) => {
 };
 
 export const getSpots = () => async (dispatch) => {
-  const response = await fetch(`/api/spots`);
+  const response = await csrfFetch("/api/spots");
 
   if (response.ok) {
     const list = await response.json();
