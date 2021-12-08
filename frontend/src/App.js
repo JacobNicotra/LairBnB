@@ -1,11 +1,12 @@
 // frontend/src/App.js
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Router, BrowserRouter } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotBrowser from './components/SpotsPage'
+import SpotDetailer from "./components/SpotDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,14 +19,19 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
-        <Switch>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-          <Route path="/spots">
-            <SpotBrowser />
-          </Route>
-        </Switch>
+        
+          <Switch>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
+            <Route exact path="/spots">
+              <SpotBrowser />
+            </Route>
+            <Route exact path="/spot/:spotId">
+              <SpotDetailer />
+            </Route>
+          </Switch>
+      
       )}
     </>
   );

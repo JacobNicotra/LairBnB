@@ -40,6 +40,7 @@ const spotReducer = (state = initialState, action) => {
       });
       // console.log('---------------------------- allSpots --', allSpots)
       return {
+        ...state,
         ...allSpots
         // ...allSpots,
         // ...state,
