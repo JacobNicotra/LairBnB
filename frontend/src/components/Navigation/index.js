@@ -32,8 +32,12 @@ function Navigation({ isLoaded }){
       <li>
         <NavLink exact to="/spots">Spots</NavLink>
       </li>
+      <li>
+        <NavLink exact to="/spots/new">List Your Spot</NavLink>
+      </li>
     </ul>
   );
 }
 
 export default Navigation;
+//   <li key={spot.id}> <NavLink to={`/spot/${spot.id}`} >

@@ -4,6 +4,8 @@ const asyncHandler = require('express-async-handler');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { Spot, Picture } = require('../../db/models');
 
+const spotValidations = require('../../validations/spots');
+
 // ...
 // const { check } = require('express-validator');
 // const { handleValidationErrors } = require('../../utils/validation');
@@ -24,11 +26,25 @@ router.get('/', asyncHandler(async function (_req, res) {
     const pics = await findPics(spot)
     spot.dataValues.pictures = pics
     
-    // console.log('----------------------------------------------------------------------- the pics: ',spot.id, spot)
   }
-  // console.log(spots)
   return res.json(spots);
 }));
+
+
+router.post(
+  '/',
+  spotValidations.validateCreate,
+  asyncHandler(async function (req, res) {
+    // console.log('Req.Body',req.body)
+    console.log('reqbody', req.body)
+    const pictures = req.body.pictures
+    delete req.body.pictures
+    const spot = await Spot.create(req.body);
+    // console.log('post creation')
+    return res.json(spot);
+  })
+);
+
 
 //delete this
 

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getSpots } from '../../store/spot'
 import { NavLink, Route, useParams } from 'react-router-dom';
-import SpotDetailer from '../SpotDetails'
 
 function SpotBrowser() {
   const dispatch = useDispatch();
@@ -57,9 +56,7 @@ console.log('spots',spots)
           } // implement CRUD need C, u and d
         })}
       </ul>
-      {/* <Route path="/spot/:spotId">
-          <SpotDetailer />
-        </Route> */}
+     
     </main>
   );
 }
