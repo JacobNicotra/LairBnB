@@ -35,12 +35,22 @@ router.post(
   '/',
   spotValidations.validateCreate,
   asyncHandler(async function (req, res) {
-    // console.log('Req.Body',req.body)
-    console.log('reqbody', req.body)
-    const pictures = req.body.pictures
-    delete req.body.pictures
+    console.log('Req.Body',req.body)
+    // console.log('reqbody', req.body)
+    const pictures = req.body.pics
+    delete req.body.pics
     const spot = await Spot.create(req.body);
-    // console.log('post creation')
+
+    for (let key in pictures) {
+      console.log('-------THE PICS', pictures, pictures[key])
+      let newPic = {}
+      newPic.picture = pictures[key]
+      newPic.spotId = spot.id
+      console.log('newPic', newPic)
+      let newPicDb = await Picture.create(newPic)
+    }
+    // console.log('post creation', req.body)
+    // console.log('pics', pictures)
     return res.json(spot);
   })
 );

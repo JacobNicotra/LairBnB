@@ -1,3 +1,4 @@
+
 'use strict';
 
 module.exports = {
@@ -6,17 +7,17 @@ module.exports = {
       {
         title: 'Weekend Getaway in the Vale',
         description: 'Enjoy a quaint cottage in the countryside',
-        userId: 2
+        userId: 4
       },
       {
-        title: 'Red Keep Condo',
+        title: 'Kings Landing Tavern Basement',
         description: 'be in the heart of the keep',
-        userId: 3
+        userId: 5
       },
       {
         title: 'Cabin in the North',
         description: 'Cold up here, and winter is coming',
-        userId: 2
+        userId: 4
       }
     ], {});
   },

@@ -9,12 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        allowNull: false,
         type: Sequelize.STRING
       },
       picture: {
         allowNull: false,
-
         type: Sequelize.TEXT
       },
       spotId: {
