@@ -50,6 +50,7 @@ export const signup = (user) => async (dispatch) => {
       password,
     }),
   });
+  console.log('STORE RESPONSE ::::::::::::::', response)
   const data = await response.json();
   dispatch(setUser(data.user));
   return response;

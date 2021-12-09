@@ -1,40 +1,22 @@
 const { check } = require('express-validator');
-// const { types } = require('../db/models/pokemonType');
-// const { handleValidationErrors } = require('./utils');
+const { handleValidationErrors } = require('../utils/validation');
+const { body, validationResult } = require('express-validator');
+
 
 const id = check('id')
   .notEmpty()
   .isInt({ min: 0 });
-// const no = check('no')
-//   .notEmpty()
-//   .isInt({ min: 0 });
-// const attack = check('attack')
-//   .notEmpty()
-//   .isInt({ min: 0, max: 100 })
-//   .toInt();
-// const defense = check('defense')
-//   .notEmpty()
-//   .isInt({ min: 0, max: 100 })
-//   .toInt();
-// const imageUrl = check('imageUrl')
-//   .notEmpty()
-//   .isURL({ require_protocol: false, require_host: false });
-const title = check('title').notEmpty();
-const description = check('description').notEmpty()
+const title = check('title')
+  .notEmpty()
+  .isLength({ min: 5 })
+  .withMessage('Please make the title a little longer than that...')
+const description = check('description')
+  .notEmpty()
+  .isLength({ min: 10 })
+  .withMessage('Please make your description more... descriptive.')
+
 const userId = check('userId').notEmpty()
 
 exports.validateCreate = [
-  id, title, description, userId
+  title, description, userId, handleValidationErrors
 ];
-
-// exports.validateUpdate = [
-//   id,
-//   no,
-//   attack,
-//   defense,
-//   imageUrl,
-//   name,
-//   type,
-//   moves,
-//   handleValidationErrors,
-// ];

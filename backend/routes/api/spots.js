@@ -1,10 +1,13 @@
 // backend/routes/api/users.js
 const express = require('express')
 const asyncHandler = require('express-async-handler');
+const { body } = require('express-validator');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { Spot, Picture } = require('../../db/models');
 
 const spotValidations = require('../../validations/spots');
+
+
 
 // ...
 // const { check } = require('express-validator');
@@ -33,6 +36,16 @@ router.get('/', asyncHandler(async function (_req, res) {
 
 router.post(
   '/',
+  // body('title').custom(value => {
+  //   return Spot.findOne({
+  //     where: {
+  //     title : req.body.title
+  //   }}).then(user => {
+  //     if (user) {
+  //       return Promise.reject('Title already in use');
+  //     }
+  //   });
+  // }),
   spotValidations.validateCreate,
   asyncHandler(async function (req, res) {
     // console.log('Req.Body', req.body)
@@ -62,7 +75,7 @@ router.post(
 
 router.put(
   '/:id',
-  spotValidations.validateCreate,
+  [spotValidations.validateCreate],
   asyncHandler(async function (req, res) {
     let incomingPictures = req.body.pics
     delete req.body.pics
@@ -80,7 +93,7 @@ router.put(
 
     // console.log('picsInDb', picsInDb)
     for (let pic of picsInDb) {
-     await pic.destroy()
+      await pic.destroy()
     }
 
     let pictures = []
@@ -97,9 +110,7 @@ router.put(
     return res.json(spot);
 
 
-    // const id = await PokemonRepository.update(req.body);
-    // const pokemon = await PokemonRepository.one(id);
-    // return res.json(pokemon);
+  
   })
 );
 

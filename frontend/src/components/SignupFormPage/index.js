@@ -18,6 +18,8 @@ function SignupFormPage() {
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
+    console.log('errors', errors)
+
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
@@ -29,7 +31,6 @@ function SignupFormPage() {
     }
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
-
   return (
     <form onSubmit={handleSubmit}>
       <ul>

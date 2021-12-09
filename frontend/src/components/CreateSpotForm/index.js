@@ -19,6 +19,9 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
   const [numPics, setNumPics] = useState(1);
   const [pics, setPics] = useState({});
   const [picInputCounter, setPicInputCounter] = useState(0)
+
+  const [errors, setErrors] = useState([]);
+
   // const [picInputs, setPicInputs] = useState()
 
   // updating / editing 
@@ -29,10 +32,10 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
   // let picInputs = [];
 
   const grabStuff = useSelector(state => {
-    grabTitle = state.spot[spotId].title
-    grabDescription = state.spot[spotId].description
+    grabTitle = state.spot[spotId]?.title
+    grabDescription = state.spot[spotId]?.description
     // picInputs = state.spot.pictures
-    grabPics = state.spot[spotId].pictures
+    grabPics = state.spot[spotId]?.pictures
 
 
   })
@@ -93,10 +96,20 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
     };
     let spot;
     if (newSpot) {
-      spot = await dispatch(createSpot(payload));
+      spot = await dispatch(createSpot(payload))
+        .catch(async (res) => {
+          const data = await res.json()
+          if (data && data.errors) setErrors(data.errors);
+
+        })
 
     } else if (editSpot) {
-      spot = await dispatch(updateSpot(payload, spotId));
+      spot = await dispatch(updateSpot(payload, spotId))
+        .catch(async (res) => {
+          const data = await res.json()
+          if (data && data.errors) setErrors(data.errors);
+
+        })
     }
     if (spot) {
       history.push(`/spot/${spot.id}`);
@@ -142,6 +155,9 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
       <h1>FORM</h1>
       {/* <button onClick={dispatch(restoreUser())}> user info</button> */}
       <form onSubmit={handleSubmit}>
+        <ul>
+          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </ul>
         <input
           type="text"
           placeholder="Title"
