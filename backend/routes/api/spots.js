@@ -54,8 +54,52 @@ router.post(
     // console.log('post creation', req.body)
     // console.log('pics', pictures)
     spot.dataValues.pictures = pictures
-    console.log('api spot', spot)
+    // console.log('api spot', spot)
     return res.json(spot);
+  })
+);
+
+
+router.put(
+  '/:id',
+  spotValidations.validateCreate,
+  asyncHandler(async function (req, res) {
+    let incomingPictures = req.body.pics
+    delete req.body.pics
+    const spotId = +req.params.id
+    const spot = await Spot.findByPk(spotId);
+    const newSpot = await spot.update(req.body)
+    // console.log('newSpot', newSpot)
+    // console.log('incomingPictures', incomingPictures)
+
+    let picsInDb = await Picture.findAll({
+      where: {
+        spotId
+      }
+    })
+
+    // console.log('picsInDb', picsInDb)
+    for (let pic of picsInDb) {
+     await pic.destroy()
+    }
+
+    let pictures = []
+    for (let key in incomingPictures) {
+      let newPic = {}
+      newPic.picture = incomingPictures[key]
+      newPic.spotId = spotId
+
+      let newPicDb = await Picture.create(newPic)
+      pictures.push(newPicDb)
+    }
+    spot.dataValues.pictures = pictures
+    // console.log('spot', spot)
+    return res.json(spot);
+
+
+    // const id = await PokemonRepository.update(req.body);
+    // const pokemon = await PokemonRepository.one(id);
+    // return res.json(pokemon);
   })
 );
 
@@ -64,7 +108,7 @@ router.delete(
   asyncHandler(async (req, res) => {
     const spotId = req.params.id
 
-    console.log('spotId', spotId)
+    // console.log('spotId', spotId)
 
     const spot = await Spot.findByPk(spotId)
 
@@ -82,7 +126,7 @@ router.delete(
       for (let pic of pics) {
         console.log('pic: ', pic)
         await pic.destroy()
-        console.log('---------------  pic dest')
+        // console.log('---------------  pic dest')
       }
     }
 

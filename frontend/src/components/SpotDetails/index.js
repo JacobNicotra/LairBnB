@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getSpots, deleteSpot } from '../../store/spot'
 
+import EditFormModal from '../EditFormModal'
+
 function SpotDetailer() {
 
   // NEED TO TRIGGER RERENDER OF THIS COMPONENT WHEN after log out
@@ -15,13 +17,14 @@ function SpotDetailer() {
   const { spotId } = useParams()
 
   const [owner, setOwner] = useState(false)
+  const [showEditForm, setShowEditForm] = useState(false)
 
   let stater;
   const spots = useSelector(state => {
     stater = state
     // console.log("----------------SELECTOR state", state?.spot)
     // console.log("---------------- state.spot", state.spot)
-    
+
     return state.spot;
   });
   // console.log("----------------OUTsIDE state", stater?.spot)
@@ -82,6 +85,10 @@ function SpotDetailer() {
 
   }
 
+//   const handleEdit = (e) => {
+// return setShowEditForm(true)
+//   }
+
 
   if (!spot) {
     // console.log('!no spots')
@@ -99,8 +106,13 @@ function SpotDetailer() {
       }</ul></div>
       <div>{spot.description}</div>
       <div>pictues and thins</div>
-      <div>{(owner &&
-        <button onClick={handleDelete}>delete</button>)}  </div>
+      <div>{(owner && <span>
+        <button onClick={handleDelete}>Delete</button>
+          <div>
+        <EditFormModal />
+        </div>
+      </span>
+      )}  </div>
 
     </main>
   )

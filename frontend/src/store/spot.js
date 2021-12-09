@@ -63,6 +63,22 @@ export const deleteSpot = spotId => async (dispatch) => {
   }
 }
 
+export const updateSpot = (data, spotId) => async (dispatch) => {
+  // console.log('store data', data, 'id', spotId)
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: 'put',
+    body: JSON.stringify(data)
+  });
+
+  console.log('* * * * * * * back from space')
+  if (response.ok) {
+    const spot = await response.json();
+    console.log('spot from store', spot)
+    dispatch(addOneSpot(spot));
+    return spot;
+  }
+};
+
 const initialState = {
   list: [],
   types: []

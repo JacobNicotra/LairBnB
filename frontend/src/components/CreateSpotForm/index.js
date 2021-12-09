@@ -1,54 +1,79 @@
-import { useEffect, useState } from 'react';
+import { PureComponent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { createPokemon, getPokemonTypes } from '../store/pokemon';
-import { createSpot } from '../../store/spot'
-import { useHistory } from 'react-router-dom';
+import { createSpot, updateSpot } from '../../store/spot'
+import { useHistory, useParams } from 'react-router-dom';
 import { restoreUser } from '../../store/session'
 import LoginFormModal from '../LoginFormModal'
 
-const CreatePokemonForm = ({ hideForm }) => {
-  // const pokeTypes = useSelector(state => state.pokemon.types);
+const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
   const dispatch = useDispatch();
-
+  const { spotId } = useParams()
+  // console.log(spotId, 'the id')
   const userId = useSelector(state => {
-    // console.log("STATE USER", state.session.user)
     return state?.session?.user?.id
   });
-  // console.log(userId)
-
 
   const history = useHistory();
-  // const [no, setNo] = useState(1);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [numPics, setNumPics] = useState(1);
   const [pics, setPics] = useState({});
-  // const [exterior, setExterior] = useState(true);
-  // const [count, setCount] = useState(0);
-  // const [move1, setMove1] = useState('');
-  // const [move2, setMove2] = useState('');
+  const [picInputCounter, setPicInputCounter] = useState(0)
+  // const [picInputs, setPicInputs] = useState()
 
-  // const updateNo = (e) => setNo(e.target.value);
+  // updating / editing 
+  let grabTitle;
+  let grabDescription;
+  let grabPics
+
+  // let picInputs = [];
+
+  const grabStuff = useSelector(state => {
+    grabTitle = state.spot[spotId].title
+    grabDescription = state.spot[spotId].description
+    // picInputs = state.spot.pictures
+    grabPics = state.spot[spotId].pictures
+
+
+  })
+  // console.log('titls', grabTitle, grabDescription)
+  useEffect(() => {
+    if (grabTitle) {
+      setTitle(grabTitle)
+      setDescription(grabDescription)
+    }
+  }, [])
+  useEffect(() => {
+    let tempPics = {}
+    if (grabPics) {
+      let countr = 0;
+      for (let pic in grabPics) {
+        console.log('pic in folrloop', grabPics[pic])
+        let id = grabPics[pic].id
+        let picture = grabPics[pic].picture
+        // console.log('PIIICCCS', pics)
+        tempPics[countr] = picture
+        countr++
+      }
+      setPicInputCounter(countr + 1)
+      setPics({ ...pics, ...tempPics })
+    }
+    return (pics) => pics
+  }, [])
+  console.log('end pics', pics)
+
+
   const updateTitle = (e) => setTitle(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
+
   const updateNumPics = (e) => {
     e.preventDefault()
-    setNumPics(numPics + 1)
+    // setNumPics(numPics + 1)
+    let id = picInputCounter
+    setPics({ ...pics, [id]: "" })
+    setPicInputCounter(picInputCounter + 1)
+
   };
-  // const updateExterior = () => setExterior(!exterior);
-  // const updateType = (e) => setType(e.target.value);
-  // const updateMove1 = (e) => setMove1(e.target.value);
-  // const updateMove2 = (e) => setMove2(e.target.value);
-
-  // useEffect(() => {
-  //   dispatch(getPokemonTypes());
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (pokeTypes.length && !type) {
-  //     setType(pokeTypes[0]);
-  //   }
-  // }, [pokeTypes, type]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +84,6 @@ const CreatePokemonForm = ({ hideForm }) => {
       )
 
     }
-    console.log('---------------------------------------------------------- payload pics', pics)
 
     const payload = {
       title,
@@ -67,9 +91,13 @@ const CreatePokemonForm = ({ hideForm }) => {
       userId,
       pics
     };
-    // console.log('herererererer')
-    const spot = await dispatch(createSpot(payload));
-    // console.log('SPOT', spot)
+    let spot;
+    if (newSpot) {
+      spot = await dispatch(createSpot(payload));
+
+    } else if (editSpot) {
+      spot = await dispatch(updateSpot(payload, spotId));
+    }
     if (spot) {
       history.push(`/spot/${spot.id}`);
     }
@@ -77,26 +105,34 @@ const CreatePokemonForm = ({ hideForm }) => {
 
   // https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpwW94OrHghgYQpK1htWKIhxJJ67qIlKX4Wg&usqp=CAU
 
-  const picUpdater = (e, i) => {
-    // console.log('target', e.target.value)
+  // const picUpdater = (e, i) => {
+  //   let id = e.target.id
+  //   setPics({ ...pics, [id]: e.target.value })
+  //   // console.log('pics', pics)
+  //   return pics
+  // }
+  const picUpdater = (e) => {
     let id = e.target.id
     setPics({ ...pics, [id]: e.target.value })
     // console.log('pics', pics)
+    // console.log('picupdater pics', pics)
     return pics
   }
-
-
+  console.log(' * * * * * pics', pics)
   let picInputs = [];
-  for (let i = 0; i < numPics; i++) {
+  // for (let i = 0; i < numPics; i++) {
+  for (let pic in pics) {
     // note: we are adding a key prop here to allow react to uniquely identify each
     // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
-    picInputs.push(<span key={i}>
+    picInputs.push(<span key={pic}>
       <input
         type="url"
-        id={`picId-${i}`}
+        id={`${pic}`}
         placeholder="Picture"
         pattern="https://.*"
-        onBlur={picUpdater}
+        value={pics[pic]}
+        // onBlur={picUpdater}
+        onChange={picUpdater}
       />
     </span>);
   }
@@ -124,52 +160,12 @@ const CreatePokemonForm = ({ hideForm }) => {
         }
           <button onClick={updateNumPics}>Add Another Picture</button>
         </div>
-        {/* <input
-          type="number"
-          placeholder="Attack"
-          min="0"
-          max="100"
-          required
-          value={title}
-          onChange={updateTitle} />
-        <input
-          type="number"
-          placeholder="description"
-          min="0"
-          max="100"
-          required
-          value={description}
-          onChange={updateDescription} />
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={imageUrl}
-          onChange={updateImageUrl} />
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={updateName} />
-        <input
-          type="text"
-          placeholder="Move 1"
-          value={move1}
-          onChange={updateMove1} />
-        <input
-          type="text"
-          placeholder="Move 2"
-          value={move2}
-          onChange={updateMove2} />
-        <select onChange={updateType} value={type}>
-          {pokeTypes.map(type =>
-            <option key={type}>{type}</option>
-          )} */}
-        {/* </select> */}
-        <button type="submit">Create new Spot</button>
+
+        <button type="submit">{newSpot ? "Create new Spot!" : "Update this Spot!"}</button>
         {/* <button type="button" onClick={handleCancelClick}>Cancel</button> */}
       </form>
     </section>
   );
 };
 
-export default CreatePokemonForm;
+export default CreatSpotForm;
