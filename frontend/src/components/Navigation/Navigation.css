@@ -1,0 +1,10 @@
+.nav-button-list * {
+color: black;
+/* display: flex; */
+justify-content: center;
+}
+.nav-button-list {
+color: black;
+display: flex;
+justify-content:space-between;
+}

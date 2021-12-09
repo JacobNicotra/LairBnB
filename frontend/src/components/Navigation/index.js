@@ -6,7 +6,7 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
@@ -24,17 +24,26 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-        {isLoaded && sessionLinks}
-      </li>
-      <li>
-        <NavLink exact to="/spots">Spots</NavLink>
-      </li>
-      <li>
-        <NavLink exact to="/spots/new">List Your Spot</NavLink>
-      </li>
+    <ul className="nav-button-list" >
+      <div>
+        <li>
+          <NavLink exact to="/">Home</NavLink>
+          {isLoaded && sessionLinks}
+        </li>
+
+      </div>
+      <div>
+        <li>
+          <NavLink exact to="/spots">Spots</NavLink>
+        </li>
+
+      </div>
+      <div>
+        <li>
+          <NavLink exact to="/spots/new">List Your Spot</NavLink>
+        </li>
+
+      </div>
     </ul>
   );
 }

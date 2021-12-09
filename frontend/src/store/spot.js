@@ -22,7 +22,7 @@ const removeSpot = (spot) => ({
 });
 
 export const createSpot = (data) => async (dispatch) => {
-  console.log(' ---------------------------------- data', data);
+  // console.log(' ---------------------------------- data', data);
 
   const response = await csrfFetch("/api/spots", {
     method: 'POST',
@@ -33,7 +33,7 @@ export const createSpot = (data) => async (dispatch) => {
   if (response.ok) {
     // console.log('res is ok')
     const spot = await response.json();
-    console.log(' ---------------------------------- store', spot)
+    // console.log(' ---------------------------------- store', spot)
     // console.log('state', state)
     dispatch(addOneSpot(spot));
     return spot;
@@ -70,10 +70,10 @@ export const updateSpot = (data, spotId) => async (dispatch) => {
     body: JSON.stringify(data)
   });
 
-  console.log('* * * * * * * back from space')
+  // console.log('* * * * * * * back from space')
   if (response.ok) {
     const spot = await response.json();
-    console.log('spot from store', spot)
+    // console.log('spot from store', spot)
     dispatch(addOneSpot(spot));
     return spot;
   }
@@ -117,7 +117,7 @@ const spotReducer = (state = initialState, action) => {
     }
     case ADD_ONE: {
       if (!state[action?.spot?.id]) {
-        console.log(' ---------------------------------------------------------- ACTION IN REDUCER', action)
+        // console.log(' ---------------------------------------------------------- ACTION IN REDUCER', action)
         const newState = {
           ...state,
           [action.spot.id]: action.spot
@@ -137,10 +137,10 @@ const spotReducer = (state = initialState, action) => {
     }
     case DELETE_ONE: {
       const newState = { ...state }
-      console.log(' ----------------------------------------------------------reducer action', action)
+      // console.log(' ----------------------------------------------------------reducer action', action)
       // console.log('reducer action.spot', action.spot)
       // console.log('reducer action.spot.id', action.spot.di)
-      console.log('newState', newState)
+      // console.log('newState', newState)
       delete newState[action.spot.id]
       return newState
     }

@@ -20,7 +20,7 @@ function SpotBrowser() {
 
 
   if (!spots) {
-    console.log('!no spots')
+    // console.log('!no spots')
     return null;
   }
 // console.log('spots',spots)
@@ -34,8 +34,8 @@ function SpotBrowser() {
             
             return (
               <li key={spot.id}> <NavLink to={`/spot/${spot.id}`} >
-                <div>{spot.title}</div>
-                <div>{spot.description}</div>
+                <div className="spot-title-SpotsPage">{spot.title}</div>
+                {/* <div>{spot.description}</div> */}
                 {/* <div>{spot.pictures && spot.pictures}</div> */}
                 {/* <div>{spot.pictures && <img src={spot.pictures[0].picture} alt="listing" />}</div> */}
                 <div><ul>

@@ -6,8 +6,10 @@ import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getSpots, deleteSpot } from '../../store/spot'
-
 import EditFormModal from '../EditFormModal'
+
+import './SpotDetails.css';
+
 
 function SpotDetailer() {
 
@@ -67,9 +69,7 @@ function SpotDetailer() {
   }, [dispatch, userId, stater.spot]);
 
 
-  // console.log('spots ', spots)
-  // console.log('id: ', spotId, spot)// spot.title)
-  // console.log("TITLE", spot?.title)
+ 
 
 
   const handleDelete = (e) => {
@@ -96,16 +96,19 @@ function SpotDetailer() {
   }
   return (
     <main>
-      <h1>{spot.title}</h1>
-      <div><ul>{
+      <h1 className="title-SpotDetails" >{spot.title}</h1>
+      <div className="spot-info-SpotDetails" ><ul>{
         (spot.pictures && spot.pictures.map((picture) => {
           return (
-            <li key={picture.id}> <img src={picture.picture} alt="listing" /></li >
+            <div className="container-pic-SpotDetails" >
+
+              <li className="pic-SpotDetails" key={picture.id}> <img src={picture.picture} alt="listing" /></li >
+            </div>
           )
         }))
       }</ul></div>
-      <div>{spot.description}</div>
-      <div>pictues and thins</div>
+      <div className="desc-SpotDetails" >{spot.description}</div>
+      {/* <div>pictues and thins</div> */}
       <div>{(owner && <span>
         <button onClick={handleDelete}>Delete</button>
           <div>

@@ -135,7 +135,6 @@ router.delete(
     if (pics.length > 0) {
 
       for (let pic of pics) {
-        console.log('pic: ', pic)
         await pic.destroy()
         // console.log('---------------  pic dest')
       }

@@ -51,7 +51,6 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
     if (grabPics) {
       let countr = 0;
       for (let pic in grabPics) {
-        console.log('pic in folrloop', grabPics[pic])
         let id = grabPics[pic].id
         let picture = grabPics[pic].picture
         // console.log('PIIICCCS', pics)
@@ -63,7 +62,6 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
     }
     return (pics) => pics
   }, [])
-  console.log('end pics', pics)
 
 
   const updateTitle = (e) => setTitle(e.target.value);
@@ -131,7 +129,6 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
     // console.log('picupdater pics', pics)
     return pics
   }
-  console.log(' * * * * * pics', pics)
   let picInputs = [];
   // for (let i = 0; i < numPics; i++) {
   for (let pic in pics) {
