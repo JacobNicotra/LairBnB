@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
-import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getSpots, deleteSpot } from '../../store/spot'
@@ -13,19 +12,15 @@ import './SpotDetails.css';
 
 function SpotDetailer() {
 
-  // NEED TO TRIGGER RERENDER OF THIS COMPONENT WHEN after log out
   const history = useHistory();
   const dispatch = useDispatch();
   const { spotId } = useParams()
 
   const [owner, setOwner] = useState(false)
-  const [showEditForm, setShowEditForm] = useState(false)
 
   let stater;
   const spots = useSelector(state => {
     stater = state
-    // console.log("----------------SELECTOR state", state?.spot)
-    // console.log("---------------- state.spot", state.spot)
 
     return state.spot;
   });
@@ -51,7 +46,7 @@ function SpotDetailer() {
     if (userId && userId === spot?.userId) {
       return setOwner(true)
     } else setOwner(false)
-  }, [dispatch, userId, stater.spot]);
+  }, [dispatch, userId, stater.spot, spot?.userId]);
 
 
  

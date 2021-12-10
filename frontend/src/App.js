@@ -1,13 +1,12 @@
 // frontend/src/App.js
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch, Router, BrowserRouter } from "react-router-dom";
+import { Route, Switch, } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotBrowser from './components/SpotsPage'
 import SpotDetailer from "./components/SpotDetails";
-import CreateSpotForm from './components/CreateSpotForm'
 import CreateSpotPage from './components/CreateSpotPage'
 
 function App() {

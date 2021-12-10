@@ -46,4 +46,3 @@ function Navigation({ isLoaded }) {
 }
 
 export default Navigation;
-//   <li key={spot.id}> <NavLink to={`/spot/${spot.id}`} >

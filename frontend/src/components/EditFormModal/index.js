@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import EditForm from './EditForm';
-import LoginForm from '../../components/LoginFormModal/LoginForm'
 
 function EditFormModal() {
   const [showModal, setShowModal] = useState(false);
