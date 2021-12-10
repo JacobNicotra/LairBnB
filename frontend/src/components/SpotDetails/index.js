@@ -54,12 +54,13 @@ function SpotDetailer() {
 
 
 
-  const handleDelete = (e) => {
-    const deletedSpot = dispatch(deleteSpot(spotId))
+  const handleDelete = async (e) => {
+    const deletedSpot = await dispatch(deleteSpot(spotId))
+
     if (deletedSpot) {
-      history.push(`/spots`);
+      return history.push(`/spots`);
     }
-    // }
+
 
   }
 
