@@ -30,7 +30,6 @@ export const createSpot = (data) => async (dispatch) => {
 
   if (response.ok) {
     const spot = await response.json();
-    console.log('SPOT', spot)
     dispatch(addOneSpot(spot));
     return spot;
   }

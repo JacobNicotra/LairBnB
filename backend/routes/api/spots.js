@@ -68,8 +68,6 @@ router.post(
     const user = await User.findByPk(req.body.userId)
     const username = user.username
     spot.dataValues.User = { username }
-    console.log('req', username)
-    console.log('spot', spot)
     const pictures = []
     for (let key in incomingPictures) {
       let newPic = {}

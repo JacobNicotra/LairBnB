@@ -44,7 +44,7 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
       setDescription(grabDescription)
       setPrice(grabPrice)
     }
-  }, [grabDescription, grabTitle])
+  }, [grabDescription, grabTitle, grabPrice])
 
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
         countr++
       }
       setPicInputCounter(countr + 1)
-      setPics({ ...pics, ...tempPics })
+      setPics(tempPics)
     }
     return (pics) => pics
   }, [grabPics])
@@ -92,7 +92,6 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
       return setErrors(["Please include a description."])
     }
 
-    console.log('price: ', price, price.length)
     if (!price > 0) {
       return setErrors(["Please include a price."])
     }
@@ -141,7 +140,6 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
   }
 
 
-  console.log('info:   ', title, description, price)
   const picUpdater = (e) => {
     let id = e.target.id
     setPics({ ...pics, [id]: e.target.value })

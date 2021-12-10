@@ -29,7 +29,6 @@ function SpotDetailer() {
   });
 
   const spot = spots[spotId]
-console.log('spot    dfsdfsad ', spot)
 
   const userId = useSelector(state => {
     return state?.session?.user?.id
