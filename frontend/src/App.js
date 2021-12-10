@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import SpotBrowser from './components/SpotsPage'
 import SpotDetailer from "./components/SpotDetails";
 import CreateSpotPage from './components/CreateSpotPage'
+import HomePage from './components/HomePage'
 
 function App() {
   const dispatch = useDispatch();
@@ -33,7 +34,10 @@ function App() {
             </Route>
             <Route exact path="/spots/new">
               <CreateSpotPage />
-            </Route>
+          </Route>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
           </Switch>
       
       )}

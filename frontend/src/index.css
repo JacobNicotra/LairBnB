@@ -47,12 +47,14 @@ div {
 .pic-SpotDetails img {
   border-radius: 7.5px;
   margin: 5px;
+  height: 165px;
+  width: 300px;
 
 }
 
 .img-SpotDetails {
-  max-width: 500px;
-  box-shadow: 4px 4px 7px 4px rgba(48, 48, 48, 0.486);
+  width: 300px;
+  object-fit: cover;
 }
 .pics-SpotDetails {
   text-align: center;
@@ -515,4 +517,30 @@ margin-bottom: 65px;
 height:60px;
 width: 60px;
 margin: 0 5px 10px 0
+}
+
+#banner-container > img{
+  width: 92px;
+  height: 173px;
+}
+
+#banner-container {
+display: inline-block;
+text-align: center;
+margin-top: 25px;
+}
+
+#welcome-text1,#welcome-text2,#welcome-text3 {
+text-align: center;
+
+}
+
+#home-page-main{ 
+  text-align: center;
+}
+
+
+
+#banner-container > img:hover{
+  transform: translateY(-7.2px)
 }
