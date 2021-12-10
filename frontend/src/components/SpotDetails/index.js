@@ -84,9 +84,9 @@ function SpotDetailer() {
       <div className="user-SpotDetails" >Hosted By: {spot.User.username}</div>
       {/* <div>pictues and thins</div> */}
       <div>{(owner && <span>
-        <button className="small-red-btn small-btn" onClick={handleDelete}>Delete</button>
-          <div>
+          <div className="edit-delete">
         <EditFormModal />
+        <button className="small-red-btn small-btn" onClick={handleDelete}>Delete</button>
         </div>
       </span>
       )}  </div>

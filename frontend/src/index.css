@@ -539,8 +539,10 @@ text-align: center;
   text-align: center;
 }
 
-
-
 #banner-container > img:hover{
   transform: translateY(-7.2px)
+}
+
+.edit-delete {
+  text-align: center;
 }
