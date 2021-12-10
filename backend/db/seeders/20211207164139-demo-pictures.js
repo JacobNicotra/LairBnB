@@ -36,22 +36,22 @@ module.exports = {
       {
         title: 'red',
         picture: 'https://www.messynessychic.com/wp-content/uploads/2013/06/tavern.jpg',
-        spotId: 1
+        spotId: 2
       },
       {
         title: 'r',
         picture: 'https://images.adsttc.com/media/images/5966/c43c/b22e/38a4/e100/0299/large_jpg/Main_street-Dubrovnik-2.jpg?1499907127',
-        spotId: 1
+        spotId: 2
       },
       {
         title: 'r',
         picture: 'https://media.architecturaldigest.com/photos/5cacb11b30b5edbab4b94fc7/16:9/w_2560%2Cc_limit/Courtesy%2520of%2520HBO%2520(Season%25205)%2520Kings%2520Landing%2520Arial.jpg',
-        spotId: 1
+        spotId: 2
       },
       {
         title: 'r',
         picture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-xdxK-bWo8Qd4ID2Ub8sYLaiXzV6yGcdBcA&usqp=CAU',
-        spotId: 1
+        spotId: 2
       },
       {
         title: 'north cab',
@@ -75,7 +75,7 @@ module.exports = {
       },
       {
         title: 'ship',
-        picture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV7MSIOkoKNJKprDBofZFZfPglz6FR-gfVcw&usqp=CAU',
+        picture: 'https://static.wikia.nocookie.net/gameofthrones/images/d/dd/Myraham2x02.jpg/revision/latest?cb=20130209213813',
         spotId: 4
       },
       {
