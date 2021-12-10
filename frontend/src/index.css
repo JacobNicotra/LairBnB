@@ -89,7 +89,7 @@ font-weight: bold;
 }
 
 .spot-tile:hover {
-  transform: translateY(-7.2px)
+  transform: scale3d(1.05, 1.05, 1.05);
 }
 
 .spot-tile img {
@@ -522,12 +522,15 @@ margin: 0 5px 10px 0
 #banner-container > img{
   width: 92px;
   height: 173px;
+  margin: 0 16px 0 16px;
+
 }
 
 #banner-container {
 display: inline-block;
 text-align: center;
 margin-top: 25px;
+
 }
 
 #welcome-text1,#welcome-text2,#welcome-text3 {
@@ -540,7 +543,7 @@ text-align: center;
 }
 
 #banner-container > img:hover{
-  transform: translateY(-7.2px)
+  transform: scale3d(1.1, 1.1, 1.1);
 }
 
 .edit-delete {
