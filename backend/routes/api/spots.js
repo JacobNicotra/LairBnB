@@ -22,6 +22,9 @@ router.get('/', asyncHandler(async function (_req, res) {
       { model: User }
     ]
   });
+  let date = spots[0].dataValues.createdAt
+  console.log('TYPE: ',typeof date)
+  console.log(date)
 
   const findPics = async (spot) => {
     return await Picture.findAll({
