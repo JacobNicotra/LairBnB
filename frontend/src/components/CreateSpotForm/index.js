@@ -24,11 +24,13 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
   let grabTitle;
   let grabDescription;
   let grabPics = null
+  let grabPrice = 0
 
 
   useSelector(state => {
     grabTitle = state.spot[spotId]?.title
     grabDescription = state.spot[spotId]?.description
+    grabPrice = state.spot[spotId]?.price
     if (state.spot[spotId] && state.spot[spotId].pictures.length) {
 
       grabPics = state.spot[spotId]?.pictures
@@ -40,6 +42,7 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
     if (grabTitle) {
       setTitle(grabTitle)
       setDescription(grabDescription)
+      setPrice(grabPrice)
     }
   }, [grabDescription, grabTitle])
 
@@ -88,7 +91,9 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
     if (!description.length) {
       return setErrors(["Please include a description."])
     }
-    if (!price.length) {
+
+    console.log('price: ', price, price.length)
+    if (!price > 0) {
       return setErrors(["Please include a price."])
     }
 
@@ -99,6 +104,7 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
     const payload = {
       title,
       description,
+      price,
       userId,
       pics
     };
@@ -135,7 +141,7 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
   }
 
 
-  
+  console.log('info:   ', title, description, price)
   const picUpdater = (e) => {
     let id = e.target.id
     setPics({ ...pics, [id]: e.target.value })

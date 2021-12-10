@@ -62,6 +62,7 @@ div {
 
 .spot-info-SpotDetails {
   display: flex;
+  flex-direction: column;
   color: #272838;
   justify-content: center;
 }
@@ -548,4 +549,16 @@ text-align: center;
 
 .edit-delete {
   text-align: center;
+}
+
+.price-SpotDetails {
+  display: flex;
+  font-size: 21px;
+justify-content: center;
+}
+
+
+.coin-details {
+  margin-top: 3px;
+  margin-right: 4px;
 }

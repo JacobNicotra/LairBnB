@@ -3,7 +3,7 @@ const express = require('express')
 const asyncHandler = require('express-async-handler');
 const { body } = require('express-validator');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot, Picture, User} = require('../../db/models');
+const { Spot, Picture, User } = require('../../db/models');
 
 const spotValidations = require('../../validations/spots');
 
@@ -59,23 +59,17 @@ router.get('/:id', asyncHandler(async function (req, res) {
 
 router.post(
   '/',
-  // body('title').custom(value => {
-  //   return Spot.findOne({
-  //     where: {
-  //     title : req.body.title
-  //   }}).then(user => {
-  //     if (user) {
-  //       return Promise.reject('Title already in use');
-  //     }
-  //   });
-  // }),
   spotValidations.validateCreate,
   asyncHandler(async function (req, res) {
 
     const incomingPictures = req.body.pics
     delete req.body.pics
     const spot = await Spot.create(req.body);
-
+    const user = await User.findByPk(req.body.userId)
+    const username = user.username
+    spot.dataValues.User = { username }
+    console.log('req', username)
+    console.log('spot', spot)
     const pictures = []
     for (let key in incomingPictures) {
       let newPic = {}

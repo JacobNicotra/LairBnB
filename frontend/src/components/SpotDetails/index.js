@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSpots, deleteSpot } from '../../store/spot'
 import EditFormModal from '../EditFormModal'
 
+import coin from '../../images/coin.png'
+
+
 import './SpotDetails.css';
 
 
@@ -26,7 +29,7 @@ function SpotDetailer() {
   });
 
   const spot = spots[spotId]
-
+console.log('spot    dfsdfsad ', spot)
 
   const userId = useSelector(state => {
     return state?.session?.user?.id
@@ -49,7 +52,7 @@ function SpotDetailer() {
   }, [dispatch, userId, stater.spot, spot?.userId]);
 
 
- 
+
 
 
   const handleDelete = (e) => {
@@ -70,23 +73,29 @@ function SpotDetailer() {
   return (
     <main>
       <h1 className="title-SpotDetails" >{spot.title}</h1>
-      <div className="spot-info-SpotDetails" ><ul className="pics-SpotDetails">{
-        (spot.pictures && spot.pictures.map((picture) => {
-          return (
-            <div key={picture.id} className="container-pic-SpotDetails" >
 
-              <li className="pic-SpotDetails" > <img className="img-SpotDetails" src={picture.picture} alt="listing" /></li >
-            </div>
-          )
-        }))
-      }</ul></div>
+      <div className="spot-info-SpotDetails" >
+        <span className="price-SpotDetails">
+          <img className="coin coin-details" src={coin} alt="gold dragons" width="25" height="25" />
+          <div>{spot.price} / night</div>
+        </span>
+        <ul className="pics-SpotDetails">{
+          (spot.pictures && spot.pictures.map((picture) => {
+            return (
+              <div key={picture.id} className="container-pic-SpotDetails" >
+
+                <li className="pic-SpotDetails" > <img className="img-SpotDetails" src={picture.picture} alt="listing" /></li >
+              </div>
+            )
+          }))
+        }</ul></div>
       <div className="desc-SpotDetails" >{spot.description}</div>
       <div className="user-SpotDetails" >Hosted By: {spot.User.username}</div>
       {/* <div>pictues and thins</div> */}
       <div>{(owner && <span>
-          <div className="edit-delete">
-        <EditFormModal />
-        <button className="small-red-btn small-btn" onClick={handleDelete}>Delete</button>
+        <div className="edit-delete">
+          <EditFormModal />
+          <button className="small-red-btn small-btn" onClick={handleDelete}>Delete</button>
         </div>
       </span>
       )}  </div>
