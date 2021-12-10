@@ -22,7 +22,6 @@ router.get('/', asyncHandler(async function (_req, res) {
       { model: User }
     ]
   });
-  console.log(' ------------ spots', spots)
 
   const findPics = async (spot) => {
     return await Picture.findAll({
@@ -42,7 +41,6 @@ router.get('/', asyncHandler(async function (_req, res) {
 router.get('/:id', asyncHandler(async function (req, res) {
   const spotId = +req.params.id
   const spot = await Spot.findByPk(spotId);
-  console.log('--------- spot', spot)
 
   const findPics = async (spot) => {
     return await Picture.findAll({
@@ -73,26 +71,20 @@ router.post(
   // }),
   spotValidations.validateCreate,
   asyncHandler(async function (req, res) {
-    // console.log('Req.Body', req.body)
-    // console.log('reqbody', req.body)
+
     const incomingPictures = req.body.pics
     delete req.body.pics
     const spot = await Spot.create(req.body);
 
     const pictures = []
     for (let key in incomingPictures) {
-      // console.log('-------THE PICS', incomingPictures, incomingPictures[key])
       let newPic = {}
       newPic.picture = incomingPictures[key]
       newPic.spotId = spot.id
-      // console.log('newPic', newPic)
       let newPicDb = await Picture.create(newPic)
       pictures.push(newPicDb)
     }
-    // console.log('post creation', req.body)
-    // console.log('pics', pictures)
     spot.dataValues.pictures = pictures
-    // console.log('api spot', spot)
     return res.json(spot);
   })
 );
@@ -107,8 +99,6 @@ router.put(
     const spotId = +req.params.id
     const spot = await Spot.findByPk(spotId);
     const newSpot = await spot.update(req.body)
-    // console.log('newSpot', newSpot)
-    // console.log('incomingPictures', incomingPictures)
 
     let picsInDb = await Picture.findAll({
       where: {
@@ -116,7 +106,6 @@ router.put(
       }
     })
 
-    // console.log('picsInDb', picsInDb)
     for (let pic of picsInDb) {
       await pic.destroy()
     }
@@ -131,7 +120,6 @@ router.put(
       pictures.push(newPicDb)
     }
     spot.dataValues.pictures = pictures
-    // console.log('spot', spot)
     return res.json(spot);
 
 
@@ -144,31 +132,25 @@ router.delete(
   asyncHandler(async (req, res) => {
     const spotId = req.params.id
 
-    // console.log('spotId', spotId)
 
     const spot = await Spot.findByPk(spotId)
 
-    // console.log('spot', spot)
 
     const pics = await Picture.findAll({
       where: {
         spotId
       }
     })
-    // console.log('pics[0]', pics[0])
 
     if (pics.length > 0) {
 
       for (let pic of pics) {
         await pic.destroy()
-        // console.log('---------------  pic dest')
       }
     }
 
     await spot.destroy()
 
-    // console.log('spot destroyed')
-    // console.log('pics destroyed')
     return res.json(spot)
   })
 )

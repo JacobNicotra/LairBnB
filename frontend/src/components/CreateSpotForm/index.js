@@ -127,7 +127,6 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
   const handleDeletePicInput = async (e) => {
     e.preventDefault()
     let picToDelete = +e.target.id - 1
-    console.log('dete this one', picToDelete)
     let tempPics = pics
     delete tempPics[picToDelete]
     setPics(tempPics)

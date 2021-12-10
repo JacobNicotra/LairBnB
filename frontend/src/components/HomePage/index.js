@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
 import { useHistory } from 'react-router-dom';
@@ -17,11 +16,8 @@ import martell from '../../images/martell_oberyn.png'
 function EditForm() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [credential, setCredential] = useState("");
-  const [password, setPassword] = useState("password");
 
   const handleSubmit = (username) => {
-    console.log(username)
     dispatch(sessionActions.login({ credential: username, password: "password" }));
     history.push(`/spots`);
 
@@ -34,7 +30,6 @@ function EditForm() {
 
   // }, [credential]);
 
-// console.log('credential:' , credential)
   return (
     <main id="home-page-main">
       <h1 id="welcome-text1">Welcome to LairBnB!</h1>
