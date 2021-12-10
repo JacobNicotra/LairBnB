@@ -57,7 +57,7 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
       setPics({ ...pics, ...tempPics })
     }
     return (pics) => pics
-  }, [grabPics, pics])
+  }, [grabPics])
 
 
   const updateTitle = (e) => setTitle(e.target.value);
@@ -146,7 +146,7 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
   for (let pic in pics) {
  
     picInputs.push(<span key={pic}>
-      <div class="pic-input-container">
+      <div className="pic-input-container">
       <input
         type="url"
         id={`${pic}`}
@@ -185,7 +185,7 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
           onChange={updateDescription}
           className="input desc-input"
         />
-        <div class="pic-holder">{
+        <div className="pic-holder">{
           picInputs
         }
           <button className="small-btn add-pic" onClick={updateNumPics}>{picInputCounter === 0 ? 'Add a Picture' : 'Add Another Picture'}</button>
