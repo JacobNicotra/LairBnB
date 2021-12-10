@@ -1,6 +1,6 @@
 /* TODO Add site wide styles */
-html, body, input, textarea, button, select, a, li {
-  font-family: 'Open Sans';
+html, body, input, textarea, button, select, a, li, input {
+  font-family: 'Poppins, sans serif';
   font-size: 14px;
   text-decoration: none;
   list-style-type: none;
@@ -8,12 +8,21 @@ html, body, input, textarea, button, select, a, li {
   /* background-color: black; */
 }
 
+html * {
+  font-family:fantasy;
+}
+
+div {
+  color: black;
+}
+
 .spot-title-SpotsPage {
-  color:#000000;
+  color:#f0f0f0;
+  font-size: 30px;
 }
 
 .spot-title-SpotsPage:hover {
-  color:#b1160298;
+  color:rgb(207, 207, 207);
 }
 .spot-title-SpotsPage:active {
   color:#ff0000;
@@ -28,16 +37,156 @@ html, body, input, textarea, button, select, a, li {
 
 .container-pic-SpotDetails {
   display: inline;
-  float: left;
-  padding: 5px;
+  /* float: left; */
+  display: inline-block;
+  text-align: center;
+
+  /* padding: 5px; */
+}
+
+.pic-SpotDetails img {
+  border-radius: 7.5px;
+  margin: 5px;
+
+}
+
+.img-SpotDetails {
+  max-width: 500px;
+  box-shadow: 4px 4px 7px 4px rgba(48, 48, 48, 0.486);
+}
+.pics-SpotDetails {
+  text-align: center;
 }
 
 .spot-info-SpotDetails {
   display: flex;
+  color: #272838;
+  justify-content: center;
 }
 
 .desc-SpotDetails {
 text-align: center;
+font-size: 16px;
+font-weight: bold;
+
+}
+
+/* spotPage tiles */
+
+.spot-tile {
+  background-color: #272838;
+  margin-top: 60px;
+  max-width: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  flex-direction: column;
+  border-radius: 15px;
+  box-shadow: 4px 4px 7px 4px rgba(48, 48, 48, 0.486);
+}
+
+.spot-tile:hover {
+  transform: translateY(-7.2px)
+}
+
+.spot-tile img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    /* flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100% */
+    
+}
+
+.spot-tile * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.spot-tile-li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100% 
+}
+
+
+/* try tiles again */
+
+.tile-1 {
+  width:500px;
+  height:300px;
+    padding:0;
+
+}
+
+.tile-2 {
+  width:100%;
+  height:inherit;
+  padding:0;
+
+}
+.tile-3 {
+  width:100%;
+  height:inherit;
+  padding:0;
+
+}
+.tile-4 {
+  width:100%;
+  height:inherit;
+  padding:0;
+
+}
+.tile-5 {
+  width:100%;
+  height:inherit;
+  padding:0;
+}
+
+.spot-title-SpotsPage {
+  padding-top: 13px;
+  padding-bottom: 10px;
+}
+
+.spot-tile-pic {
+  flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100% ;
+    object-fit: cover;
+}
+
+
+/* price styles */
+
+.price-SpotPage {
+  display: flex;
+  font-size: 25px;
+  flex-direction: row;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.price-SpotPage > div:hover {
+  color :rgb(207, 207, 207);
+ 
+}
+.price-SpotPage > div {
+  /* text-align: center; */
+  display: flex;
+  padding: 5.2px 0 0 6px
+}
+
+.price-SpotPage > * {
+  color: white;
 }
 
 /* temp styling:  */
@@ -51,8 +200,8 @@ body {
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;
-  border: 1px solid steelblue;
-  padding: 30px;
+  border: 1px solid #A33B20;
+  /* padding: 30px; */
   border-radius: 5px;
 }
 
@@ -65,7 +214,7 @@ body {
 
 .btn {
   display: inline-block;
-  background: #000;
+  background: #272838;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -75,13 +224,57 @@ body {
   text-decoration: none;
   font-size: 15px;
   font-family: inherit;
+  height :23px;
 }
 
-.btn:focus {
+.small-btn {
+  display: inline-block;
+  background: #272838;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 13.6px;
+  font-family: inherit;
+}
+
+.small-red-btn {
+  background: #A72608;
+  padding: 3px 6px;
+  height: 23px;
+}
+
+.small-blue-btn {
+  background: #16BAC5;
+  padding: 3px 6px;
+  height: 23px;
+  color: #272838;
+}
+
+.btn * {
+  color: #fff;
+  
+}
+
+.btn *:visited {
+  color: #fff;
+
+}
+
+.btn:focus, .small-btn:focus {
   outline: none;
 }
 
-.btn:active {
+
+.btn:hover, .small-btn:hover {
+  transform: scale(1.08);
+  color: rgb(207, 207, 207);
+}
+
+.btn:active, .small-btn:active {
   transform: scale(0.98);
 }
 
@@ -120,8 +313,8 @@ body {
 }
 
 .form-control input {
-  width: 100%;
-  height: 40px;
+  width: 94.2%;
+  height: 30px;
   margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
@@ -145,4 +338,181 @@ body {
 footer {
   margin-top: 30px;
   text-align: center;
+}
+
+
+/* sdafsd */
+
+.nav-button-list {
+  color:white;
+}
+
+.nav-button-list:visited {
+  color:white;
+}
+.nav-button-list:hover {
+  color:red;
+}
+.nav-button-list:active {
+  color:yellow;
+}
+
+
+a:visited {
+  text-decoration: none;
+  color:white
+}
+
+.coin {
+  height: 25px;
+  width: 25px;
+}
+
+.title-input {
+  margin: 0 7px 0 7px;
+  max-width: 100%;
+}
+.desc-input {
+  margin: 0 7px 0 7px;
+  max-width: 100%;
+}
+
+.new-form-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.spot-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+
+}
+
+.pic-input-container{
+  display: flex;
+  align-items: center;
+}
+
+.add-pic {
+  /* width: fit-content; */
+  width: 178px;
+  padding: 4px 7px 4px 7px
+}
+.pic-holder {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-spot-error-container {
+  padding: 0;
+}
+
+#spot-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.spots-page-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.spots-page-main > ul{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.spots-page-main > h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+}
+
+.spots-page-main > ul > li{
+margin-top: 10px;
+margin-bottom: 65px;
+}
+
+
+.title-SpotDetails {
+  margin-bottom: 1px;
+  margin-top: 38px;
+}
+
+.pics-SpotDetails {
+  margin-top: 3px;
+  padding-left: 0;
+}
+
+.user-SpotDetails {
+   text-align: center;
+}
+
+#modal-content {
+  min-width: 350px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.btn-log-in {
+  height: 42.99px;
+}
+
+#profile {
+  font-size: 25px;
+  color: #272838;
+}
+
+.profile-btn {
+  height: 42.99px;
+}
+
+.profile-container {
+  display: flex;
+  float: left;
+}
+
+#LairBnB {
+  color: #272838;
+  font-size: 45px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-form {
+  padding: 0 3px 5px 3px
+}
+
+#login-username-input {
+  padding: 5px;
+  margin-left: 3px;
+}
+#login-password-input {
+  padding: 5px;
+  margin-left: 3px;
+  margin-right: 3px;
+
+}
+
+#password-label {
+  margin-left: 5px;
+}
+
+#dragon {
+height:60px;
+width: 60px;
+margin: 0 5px 10px 0
 }

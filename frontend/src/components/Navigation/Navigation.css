@@ -1,10 +1,21 @@
-.nav-button-list * {
-color: black;
-/* display: flex; */
+.nav-button-list > * {
+/* color: black; */
+display: flex;
 justify-content: center;
 }
 .nav-button-list {
-color: black;
+/* color: black; */
 display: flex;
 justify-content:space-between;
 }
+
+.profile-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .profile-container{
+  display: flex;
+  flex-direction: column;
+
+} */

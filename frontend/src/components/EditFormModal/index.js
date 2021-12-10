@@ -9,7 +9,7 @@ function EditFormModal() {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Edit</button>
+      <button className="small-btn small-blue-btn" onClick={() => setShowModal(true)}>Edit</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <EditForm />

@@ -19,6 +19,7 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
   const [numPics, setNumPics] = useState(1);
   const [pics, setPics] = useState({});
   const [picInputCounter, setPicInputCounter] = useState(0)
+  const [price, setPrice] = useState('')
 
   const [errors, setErrors] = useState([]);
 
@@ -27,7 +28,7 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
   // updating / editing 
   let grabTitle;
   let grabDescription;
-  let grabPics
+  let grabPics = null
 
   // let picInputs = [];
 
@@ -35,7 +36,10 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
     grabTitle = state.spot[spotId]?.title
     grabDescription = state.spot[spotId]?.description
     // picInputs = state.spot.pictures
-    grabPics = state.spot[spotId]?.pictures
+    if (state.spot[spotId] && state.spot[spotId].pictures.length) {
+
+      grabPics = state.spot[spotId]?.pictures
+    }
 
 
   })
@@ -49,6 +53,7 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
   useEffect(() => {
     let tempPics = {}
     if (grabPics) {
+      console.log( '-------------- pics grabbed')
       let countr = 0;
       for (let pic in grabPics) {
         let id = grabPics[pic].id
@@ -66,6 +71,7 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
 
   const updateTitle = (e) => setTitle(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
+  const updatePrice = (e) => setPrice(e.target.value);
 
   const updateNumPics = (e) => {
     e.preventDefault()
@@ -84,6 +90,21 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
         <LoginFormModal />
       )
 
+    }
+
+    if (!title.length) {
+      return setErrors(["Please include a title."])
+    }
+    if (!description.length) {
+      return setErrors(["Please include a description."])
+    }
+    if (!price.length) {
+      return setErrors(["Please include a price."])
+    }
+
+    //delete empty pics before submitting
+    for (let pic in pics) {
+      if (pics[pic] === '') delete pics[pic]
     }
 
     const payload = {
@@ -114,6 +135,17 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
     }
   };
 
+  const handleDeletePicInput = async (e) => {
+    e.preventDefault()
+    let picToDelete = +e.target.id - 1
+    console.log('dete this one', picToDelete)
+    let tempPics = pics
+    delete tempPics[picToDelete]
+    setPics(tempPics)
+    setPicInputCounter(picInputCounter + 1)
+
+  }
+
   // https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpwW94OrHghgYQpK1htWKIhxJJ67qIlKX4Wg&usqp=CAU
 
   // const picUpdater = (e, i) => {
@@ -135,46 +167,60 @@ const CreatSpotForm = ({ hideForm, editSpot, newSpot }) => {
     // note: we are adding a key prop here to allow react to uniquely identify each
     // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
     picInputs.push(<span key={pic}>
+      <div class="pic-input-container">
       <input
         type="url"
         id={`${pic}`}
         placeholder="Picture"
-        pattern="https://.*"
+        // pattern="https://.*"
         value={pics[pic]}
         // onBlur={picUpdater}
         onChange={picUpdater}
-      />
+        />
+        <button className="small-btn small-red-btn" id={`${+pic + 1}`} onClick={handleDeletePicInput}>Delete</button>
+      </div>
     </span>);
   }
   // console.log(picInputs)
   return (
-    <section className="new-form-holder centered middled">
-      <h1>FORM</h1>
+    <section className="new-form-holder centered middled container">
       {/* <button onClick={dispatch(restoreUser())}> user info</button> */}
-      <form onSubmit={handleSubmit}>
-        <ul>
+      <form onSubmit={handleSubmit} className="form-control spot-form">
+        <ul className="create-spot-error-container">
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
         <input
           type="text"
           placeholder="Title"
-          required
+          // required
           value={title}
           onChange={updateTitle}
+          className="title-input"
+
+        />
+        <input
+          type="text"
+          placeholder="Price Per Night"
+          // required
+          value={price}
+          onChange={updatePrice}
+          className="title-input"
+          // pattern="/\d+"
         />
         <textarea
           placeholder="Description"
-          required
+          // required
           value={description}
           onChange={updateDescription}
+          className="input desc-input"
         />
-        <div>{
+        <div class="pic-holder">{
           picInputs
         }
-          <button onClick={updateNumPics}>Add Another Picture</button>
+          <button className="small-btn add-pic" onClick={updateNumPics}>{picInputCounter === 0 ? 'Add a Picture' : 'Add Another Picture'}</button>
         </div>
 
-        <button type="submit">{newSpot ? "Create new Spot!" : "Update this Spot!"}</button>
+        <button className="small-btn" type="submit">{newSpot ? "Create new Spot!" : "Update this Spot!"}</button>
         {/* <button type="button" onClick={handleCancelClick}>Cancel</button> */}
       </form>
     </section>

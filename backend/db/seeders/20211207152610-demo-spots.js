@@ -7,17 +7,22 @@ module.exports = {
       {
         title: 'Weekend Getaway in the Vale',
         description: 'Enjoy a quaint cottage in the countryside',
-        userId: 4
+        userId: 1,
+        price: 1500
       },
       {
         title: 'Kings Landing Tavern Basement',
         description: 'be in the heart of the keep',
-        userId: 5
+        userId: 1,
+        price: 159
+
       },
       {
         title: 'Cabin in the North',
         description: 'Cold up here, and winter is coming',
-        userId: 4
+        userId: 2,
+        price: 85
+
       }
     ], {});
   },

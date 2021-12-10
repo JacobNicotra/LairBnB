@@ -3,7 +3,7 @@ const express = require('express')
 const asyncHandler = require('express-async-handler');
 const { body } = require('express-validator');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot, Picture } = require('../../db/models');
+const { Spot, Picture, User} = require('../../db/models');
 
 const spotValidations = require('../../validations/spots');
 
@@ -17,7 +17,13 @@ const spotValidations = require('../../validations/spots');
 const router = express.Router();
 
 router.get('/', asyncHandler(async function (_req, res) {
-  const spots = await Spot.findAll();
+  const spots = await Spot.findAll({
+    include: [
+      { model: User }
+    ]
+  });
+  console.log(' ------------ spots', spots)
+
   const findPics = async (spot) => {
     return await Picture.findAll({
       where: {
@@ -30,6 +36,25 @@ router.get('/', asyncHandler(async function (_req, res) {
     spot.dataValues.pictures = pics
 
   }
+  return res.json(spots);
+}));
+
+router.get('/:id', asyncHandler(async function (req, res) {
+  const spotId = +req.params.id
+  const spot = await Spot.findByPk(spotId);
+  console.log('--------- spot', spot)
+
+  const findPics = async (spot) => {
+    return await Picture.findAll({
+      where: {
+        spotId: spot.id
+      }
+    })
+  }
+  await findPics(spot)
+
+  spot.dataValues.pictures = pics
+
   return res.json(spots);
 }));
 
@@ -110,7 +135,7 @@ router.put(
     return res.json(spot);
 
 
-  
+
   })
 );
 

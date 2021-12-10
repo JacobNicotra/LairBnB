@@ -29,41 +29,26 @@ function SpotDetailer() {
 
     return state.spot;
   });
-  // console.log("----------------OUTsIDE state", stater?.spot)
 
   const spot = spots[spotId]
-  // console.log('OUTSIDE spots', spots)
 
 
   const userId = useSelector(state => {
-    // console.log("STATE USER", state.session.user)
     return state?.session?.user?.id
 
   });
 
   useEffect(() => {
-    // console.log("-----------------UseEffect state", stater?.spot)
 
-
-    // console.log('userId', userId)
-    // console.log('INSIDE spots', spots)
 
     dispatch(getSpots());
-    // if (userId && userId === spot?.userId) {
-    //   // console.log('logged in !!!!!!!')
-    //   return setOwner(true)
-    // } //else setOwner(false)
+
   }, [dispatch]);
 
   useEffect(() => {
-    // console.log("-----------------UseEffect state", stater?.spot)
 
-
-    // console.log('userId', userId)
-    // console.log('INSIDE spots', spots)
 
     if (userId && userId === spot?.userId) {
-      // console.log('logged in !!!!!!!')
       return setOwner(true)
     } else setOwner(false)
   }, [dispatch, userId, stater.spot]);
@@ -73,44 +58,38 @@ function SpotDetailer() {
 
 
   const handleDelete = (e) => {
-    // if (userId === )
-    // console.log('userId ', typeof userId, 'spotId', typeof +spotId)
-
-    // if (userId === +spotId) {
     const deletedSpot = dispatch(deleteSpot(spotId))
-    if (deleteSpot) {
+    if (deletedSpot) {
       history.push(`/spots`);
     }
     // }
 
   }
 
-//   const handleEdit = (e) => {
-// return setShowEditForm(true)
-//   }
 
 
   if (!spot) {
-    // console.log('!no spots')
     return null;
   }
+
   return (
     <main>
       <h1 className="title-SpotDetails" >{spot.title}</h1>
-      <div className="spot-info-SpotDetails" ><ul>{
+      <div className="spot-info-SpotDetails" ><ul className="pics-SpotDetails">{
         (spot.pictures && spot.pictures.map((picture) => {
           return (
-            <div className="container-pic-SpotDetails" >
+            <div key={picture.id} className="container-pic-SpotDetails" >
 
-              <li className="pic-SpotDetails" key={picture.id}> <img src={picture.picture} alt="listing" /></li >
+              <li className="pic-SpotDetails" > <img className="img-SpotDetails" src={picture.picture} alt="listing" /></li >
             </div>
           )
         }))
       }</ul></div>
       <div className="desc-SpotDetails" >{spot.description}</div>
+      <div className="user-SpotDetails" >Hosted By: {spot.User.username}</div>
       {/* <div>pictues and thins</div> */}
       <div>{(owner && <span>
-        <button onClick={handleDelete}>Delete</button>
+        <button className="small-red-btn small-btn" onClick={handleDelete}>Delete</button>
           <div>
         <EditFormModal />
         </div>
