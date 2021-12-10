@@ -7,20 +7,45 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [
       {
-        email: 'Jon@WinterIsComing.io',
-        username: 'Jon-Snow',
+        email: 'yara@ironIslands.io',
+        username: 'Yara Greyjoy',
         hashedPassword: bcrypt.hashSync('password')
       },
       {
-        email: faker.internet.email(),
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync(faker.internet.password())
+        email: 'ramsey@dreadfort.io',
+        username: 'Ramsey Bolton',
+        hashedPassword: bcrypt.hashSync('password')
       },
       {
-        email: faker.internet.email(),
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync(faker.internet.password())
-      }
+        email: 'jon@winterIsComing.io',
+        username: 'Jon Snow',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        email: 'cersei@kingsLanging.io',
+        username: 'Cersei Lannister',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        email: 'dany@dragonstone.io',
+        username: 'Daenerys Targaryen',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        email: 'Olenna@Highgarden.io',
+        username: 'Olenna Tyrell',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        email: 'stan@stormlands.io',
+        username: 'Stannis Baratheon',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        email: 'oberyn@dorne.io',
+        username: 'Oberyn Martell',
+        hashedPassword: bcrypt.hashSync('password')
+      },
     ], {});
   },
 
