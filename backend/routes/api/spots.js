@@ -1,9 +1,8 @@
-// backend/routes/api/users.js
 const express = require('express')
 const asyncHandler = require('express-async-handler');
 const { body } = require('express-validator');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot, Picture, User } = require('../../db/models');
+const { Spot, Picture, User, Booking } = require('../../db/models');
 
 const spotValidations = require('../../validations/spots');
 
@@ -16,6 +15,40 @@ const spotValidations = require('../../validations/spots');
 
 const router = express.Router();
 
+// get bookings for spot
+router.get('/:id/bookings/', asyncHandler(async function (req, res) {
+  const spotId = +req.params.id
+
+  // console.log('req', req)
+  const bookings = await Booking.findAll({
+    where: {
+      spotId
+    }
+  });
+  
+  return res.json(bookings);
+}));
+
+
+// post booking on spot
+router.post(
+  '/:id/bookings',
+  // spotValidations.validateCreate,
+  asyncHandler(async function (req, res) {
+
+    // const user = await User.findByPk(req.body.userId)
+    // const username = user.username
+    // booking.dataValues.User = { username }
+    const booking = await Booking.create(req.body);
+
+ 
+    return res.json(booking);
+  })
+);
+
+
+
+
 router.get('/', asyncHandler(async function (_req, res) {
   const spots = await Spot.findAll({
     include: [
@@ -23,8 +56,7 @@ router.get('/', asyncHandler(async function (_req, res) {
     ]
   });
   let date = spots[0].dataValues.createdAt
-  console.log('TYPE: ',typeof date)
-  console.log(date)
+  
 
   const findPics = async (spot) => {
     return await Picture.findAll({
@@ -127,9 +159,7 @@ router.delete(
   asyncHandler(async (req, res) => {
     const spotId = req.params.id
 
-
     const spot = await Spot.findByPk(spotId)
-
 
     const pics = await Picture.findAll({
       where: {

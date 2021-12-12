@@ -373,11 +373,13 @@ a:visited {
 
 .title-input {
   margin: 0 7px 0 7px;
-  max-width: 100%;
+  width: 75%;
 }
 .desc-input {
   margin: 0 7px 0 7px;
-  max-width: 100%;
+  width: 97.6%;
+  height: 100px;
+  margin-top: 6px;
 }
 
 .new-form-holder {
@@ -391,7 +393,7 @@ a:visited {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  max-width: 100%;
+  width: 75%;
 
 }
 
@@ -402,7 +404,7 @@ a:visited {
 
 .add-pic {
   /* width: fit-content; */
-  width: 178px;
+  width: 145px;
   padding: 4px 7px 4px 7px
 }
 .pic-holder {
@@ -561,4 +563,43 @@ justify-content: center;
 .coin-details {
   margin-top: 3px;
   margin-right: 4px;
+}
+
+#home-page-main * {
+ color:#272838;
+}
+
+.checkIn,.checkOut {
+  width: 175px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  padding: 5.5px 2.5px 0 6.5px;
+
+}
+
+.checkIn-holder,.checkOut-holder {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  margin-left: 114px;
+}
+
+.booking-container  > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+}
+
+.between-dates {
+  font-size: 25px;
+  font-weight: bold;
 }

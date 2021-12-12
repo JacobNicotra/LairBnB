@@ -3,6 +3,8 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     /*
+// yyyy-MM-dd
+
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
 
@@ -14,8 +16,22 @@ module.exports = {
     */
     return queryInterface.bulkInsert('Bookings', [
       {
-        checkIn: 2019-06-01,
-        isBetaMember: false
+        checkIn: '2021-12-27',
+        checkOut: '2021-12-29',
+        userId: 2,
+        spotId: 1
+      },
+      {
+        checkIn: '2022-1-3',
+        checkOut: '2022-1-5',
+        userId: 2,
+        spotId: 2
+      },
+      {
+        checkIn: '2022-1-4',
+        checkOut: '2022-1-12',
+        userId: 1,
+        spotId: 1
       },
     ], {});
   },
@@ -28,7 +44,7 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Bookings', null, {});
     */
-      return queryInterface.bulkDelete('Bookings', null, {});
+    return queryInterface.bulkDelete('Bookings', null, {});
 
   }
 };

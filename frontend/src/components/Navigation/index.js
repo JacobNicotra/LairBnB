@@ -35,9 +35,9 @@ function Navigation({ isLoaded }) {
       <li id="LairBnB"> <img id="dragon" src={ dragon } alt="dragon"/> LairBnB </li>
 
       <li>
-        <NavLink className="btn" exact to="/spots">Spots</NavLink>
+        <NavLink className="btn" exact to="/spots">Lairs</NavLink>
     
-        <NavLink className="btn" exact to="/spots/new">List Your Spot</NavLink>
+        <NavLink className="btn" exact to="/spots/new">List Your Lair</NavLink>
       </li>
 
 

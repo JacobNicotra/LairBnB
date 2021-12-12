@@ -32,9 +32,7 @@ function EditForm() {
 
   return (
     <main id="home-page-main">
-      <h1 id="welcome-text1">Welcome to LairBnB!</h1>
-      <h3 id="welcome-text2">Browse the many accomodations available throughout the Seven Kingdoms and beyond.</h3>
-      <h4 id="welcome-text3">To make a booking, or list your own spot, log in. If you do not have an acount, you can sign up or choose a banner below to continue as a guest user</h4>
+      <h2 id="welcome-text2">Browse the many accomodations available throughout the Seven Kingdoms and beyond.</h2>
 
       <span id="banner-container">
         <img onClick={() => handleSubmit('Yara Greyjoy')} src={greyjoy} alt="greyjoy" />
@@ -46,6 +44,8 @@ function EditForm() {
         <img onClick={() => handleSubmit('Stannis Baratheon')} src={baratheon} alt="baratheon" />
         <img onClick={() => handleSubmit('Oberyn Martell')} src={martell} alt="martell" />
       </span>
+      <h3 id="welcome-text3">To make a booking, or list your own spot, log in.</h3>
+      <h3> If you do not have an acount, you can sign up or choose a banner above to continue as a guest user</h3>
 
     </ main>
 

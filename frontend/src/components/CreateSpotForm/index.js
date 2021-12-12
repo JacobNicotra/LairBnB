@@ -192,10 +192,10 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
         <div className="pic-holder">{
           picInputs
         }
-          <button className="small-btn add-pic" onClick={updateNumPics}>{picInputCounter === 0 ? 'Add a Picture' : 'Add Another Picture'}</button>
         </div>
-
+          <button className="small-btn add-pic" onClick={updateNumPics}>{picInputCounter === 0 ? 'Add a Picture' : 'Add Another Picture'}</button>
         <button className="small-btn" type="submit">{newSpot ? "Create new Spot!" : "Update this Spot!"}</button>
+
       </form>
     </section>
   );

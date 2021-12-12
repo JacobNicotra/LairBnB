@@ -103,7 +103,7 @@ const spotReducer = (state = initialState, action) => {
       if (!state[action?.spot?.id]) {
         const newState = {
           ...state,
-          [action.spot.id]: action.spot
+          [action?.spot?.id]: action.spot
         };
         const spotList = newState.list.map((id) => newState[id]);
         spotList.push(action.spot);
