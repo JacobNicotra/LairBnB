@@ -23,6 +23,7 @@ const removeSpot = (spot) => ({
 
 export const createSpot = (data) => async (dispatch) => {
 
+  console.log('spot data', data)
   const response = await csrfFetch("/api/spots", {
     method: 'POST',
     body: JSON.stringify(data)
@@ -30,6 +31,7 @@ export const createSpot = (data) => async (dispatch) => {
 
   if (response.ok) {
     const spot = await response.json();
+    console.log('spot spot', spot)
     dispatch(addOneSpot(spot));
     return spot;
   }
@@ -101,6 +103,9 @@ const spotReducer = (state = initialState, action) => {
     }
     case ADD_ONE: {
       if (!state[action?.spot?.id]) {
+        console.log('action', action)
+        console.log('state', state)
+        // console.log('action', action)
         const newState = {
           ...state,
           [action?.spot?.id]: action.spot
@@ -108,6 +113,7 @@ const spotReducer = (state = initialState, action) => {
         const spotList = newState.list.map((id) => newState[id]);
         spotList.push(action.spot);
         newState.list = spotList;
+        console.log('neSate', newState)
         return newState;
       }
       return {

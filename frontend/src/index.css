@@ -603,3 +603,23 @@ justify-content: center;
   font-size: 25px;
   font-weight: bold;
 }
+
+.error-holder{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #a72608;
+  border-radius: 7.5px;
+  box-shadow: 4px 4px 7px 4px rgba(48, 48, 48, 0.486);
+  width: fit-content;
+  padding: 8px 14px 8px 14px;
+  color: white;
+}
+
+.booking-erros-and-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

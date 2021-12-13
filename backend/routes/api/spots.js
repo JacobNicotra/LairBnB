@@ -19,7 +19,6 @@ const router = express.Router();
 router.get('/:id/bookings/', asyncHandler(async function (req, res) {
   const spotId = +req.params.id
 
-  // console.log('req', req)
   const bookings = await Booking.findAll({
     where: {
       spotId

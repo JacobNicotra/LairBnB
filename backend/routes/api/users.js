@@ -32,7 +32,7 @@ const validateSignup = [
 ];
 
 
-// get bookings for spot
+// get bookings for user
 router.get('/:id/bookings', asyncHandler(async function (req, res) {
   const userId = +req.params.id
 
@@ -41,7 +41,7 @@ router.get('/:id/bookings', asyncHandler(async function (req, res) {
       userId
     }
   });
-  
+    // console.log('api bookings', bookings )
   return res.json(bookings);
 }));
 
