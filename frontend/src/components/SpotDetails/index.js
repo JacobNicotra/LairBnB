@@ -45,14 +45,10 @@ function SpotDetailer() {
 
   useEffect(() => {
 
-
     if (userId && userId === spot?.userId) {
       return setOwner(true)
     } else setOwner(false)
-  }, [dispatch, userId, stater.spot, spot?.userId]);
-
-
-
+  }, [userId, stater.spot, spot?.userId]);
 
 
   const handleDelete = async (e) => {
@@ -65,7 +61,7 @@ function SpotDetailer() {
 
   }
 
-
+console.log('ownersdfasfsadf', owner)
 
   if (!spot) {
     return null;
@@ -100,9 +96,9 @@ function SpotDetailer() {
         </div>
       </span>
       )}  </div>
-      <div>{(!owner && <span>
+      <div>{(<span>
 
-        <TableDatePicker spotId={spotId} userId={userId} spot={spot} />
+        <TableDatePicker spotId={spotId} userId={userId} spot={spot} owner={owner} />
 
       </span>
       )}  </div>

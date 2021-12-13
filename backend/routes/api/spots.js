@@ -22,8 +22,12 @@ router.get('/:id/bookings/', asyncHandler(async function (req, res) {
   const bookings = await Booking.findAll({
     where: {
       spotId
+    },
+    include: {
+      model: User
     }
   });
+  console.log('bookings ', bookings)
   
   return res.json(bookings);
 }));

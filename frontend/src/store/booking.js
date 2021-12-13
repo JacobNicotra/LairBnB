@@ -66,7 +66,7 @@ export const getBookings = (spotId) => async (dispatch) => {
     const list = await response.json();
     // console.group('list', list)
     dispatch(load(list, spotId));
-
+return list
   }
 };
 

@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addDays } from 'date-fns';
+import { addDays, subDays } from 'date-fns';
 import DatePicker from "react-datepicker";
 
 import { createBooking, getBookings, getBookingsForUser, deleteBooking } from '../../store/booking'
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function TableDatePicker({ spotId, userId, spot }) {
+export default function TableDatePicker({ spotId, userId, spot, owner }) {
   const dispatch = useDispatch();
+console.log('owner', owner)
 
   let day = new Date()
   day.setHours(0, 0, 0, 0)
@@ -33,20 +34,15 @@ export default function TableDatePicker({ spotId, userId, spot }) {
   });
 
   const bookingsForUserForSpot = useSelector(state => {
-    
+
     let bookingArr = []
     let bookingObj = {}
-   
 
     bookingObj = { ...state.booking?.bookingsForUser, ...state.booking }
 
-  
-
     for (let booking in bookingObj) {
-      if (bookingObj[booking].spotId && bookingObj[booking].spotId === +spotId) {
-          bookingArr.push(bookingObj[booking])
-
-        
+      if (bookingObj[booking]?.spotId && bookingObj[booking]?.spotId === +spotId) {
+        bookingArr.push(bookingObj[booking])
       }
     }
     return bookingArr
@@ -55,7 +51,7 @@ export default function TableDatePicker({ spotId, userId, spot }) {
 
   useEffect(() => {
 
-    dispatch(getBookings(spotId));
+    let bookingRes1 = dispatch(getBookings(spotId));
     let bookingRes = dispatch(getBookingsForUser(userId));
 
   }, [dispatch, booked, spotId]);
@@ -95,23 +91,23 @@ export default function TableDatePicker({ spotId, userId, spot }) {
   }
 
   function isBookingForbidden(start, end) {
-     let forbidden = false
-     excludeArr.forEach(date => {
+    let forbidden = false
+    excludeArr.forEach(date => {
       //  console.log('is it true', start < end)
       //  console.log('date', date)
       //  console.log('start', start, '!!!!!!!!!!!!!!!!!!! date.start', date.start, start < date.start)
-       if (start < date.start && date.start < end ) {
-         forbidden = true
-       }
+      if (start < date.start && date.start < end) {
+        forbidden = true
+      }
     })
-  
+
     return forbidden;
   }
 
   const handleBook = async (e) => {
     e.preventDefault()
     // console.log('checkIn', checkIn, 'checkOut', checkOut, checkIn > checkOut)
-// 
+    // 
     if (!checkIn) {
       setErrors([...errors, "Your booking contains forbidden dates! Please provide a valid check-in date. Check the Calendar to make sure your choosen date is available."])
       return
@@ -123,13 +119,15 @@ export default function TableDatePicker({ spotId, userId, spot }) {
 
     if (isBookingForbidden(checkIn, checkOut)) {
       setErrors([...errors, "Your booking contains forbidden dates! Your visit shall not overlap the visit of another guest!"])
-    return 
+      return
     }
 
-    if (checkIn < new Date() || checkOut < new Date()) {
+    if (checkIn < subDays(new Date(), 1) || checkOut < subDays(new Date(), 1)) {
       setErrors([...errors, "Your booking contains forbidden dates! Your visit shall time travel!"])
-    return 
+      return
     }
+
+    setErrors([])
 
 
 
@@ -161,8 +159,11 @@ export default function TableDatePicker({ spotId, userId, spot }) {
   if (!bookings) {
     return null;
   }
+  // console.log('excludeArr',excludeArr)
   return (
     <div className="outer-booking">
+
+      {!owner &&
 
       <div className="booking-container">
         <div className="checkIn-holder">
@@ -219,24 +220,57 @@ export default function TableDatePicker({ spotId, userId, spot }) {
         <button className="small-btn" onClick={handleBook}>Book this lair</button>
 
       </div >
+      }
       <div className="booking-erros-and-list">
 
-      { errors.length > 0 &&
-      <ul className="create-spot-error-container error-holder">
-        {errors.map((error, idx) => <li key={idx}>* {error}</li>)}
-      </ul>
+        {errors.length > 0 &&
+          <ul className="create-spot-error-container error-holder">
+            {errors.map((error, idx) => <li key={idx}>* {error}</li>)}
+          </ul>
 
-      }
+        }
 
-      <ul className="bookings-on-spot-list">
-        {bookingsForUserForSpot.map((booking) => <li
-          key={booking.id}>{`You have a booking at this lair for ${booking.checkIn} through ${booking.checkOut}`}
-          <button id={booking.id} onClick={ handleDeleteBooking }className="small-btn small-red-btn">Delete</button>
-        </li>)}
-      </ul>
+        <ul className="bookings-on-spot-list">
+          {bookingsForUserForSpot.map((booking) => <li
+            key={booking.id} className="booking-for-customer">{`You have a booking at this lair for ${booking.checkIn} through ${booking.checkOut}`}
+            <button id={booking.id} onClick={handleDeleteBooking} className="small-btn small-red-btn">Delete</button>
+          </li>)}
+        </ul>
 
       </div>
-      
+      {owner &&
+
+        <div className="bookings-for-owner">
+          {
+            bookings.length > 0 ?
+              <>
+                <div>Manage your lair.</div>
+                <table className="bookings-table">
+                  <tbody>
+                    <tr className="bookings-row">
+                      <td>Customer</td>
+                      <td>Start Date</td>
+                      <td>End Date</td>
+                      <td></td>
+                    </tr>
+                    {bookings.map((booking) => (
+                      <tr key={booking.id} className="bookings-row">
+                        <td>{booking.User.username}</td>
+                        <td>{booking.checkIn}</td>
+                        <td>{booking.checkOut}</td>
+                        <td><button id={booking.id} onClick={handleDeleteBooking} className="small-btn small-red-btn">Delete</button></td>
+                      </tr>
+
+                    ))}
+                  </tbody>
+                </table>
+              </>
+              :
+              <div>No one has booked your lair yet!</div>
+          }
+        </div>
+      }
+
     </div>
   );
 
