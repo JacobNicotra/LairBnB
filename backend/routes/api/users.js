@@ -41,7 +41,6 @@ router.get('/:id/bookings', asyncHandler(async function (req, res) {
       userId
     }
   });
-    // console.log('api bookings', bookings )
   return res.json(bookings);
 }));
 

@@ -133,7 +133,6 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
           if (data && data.errors) setErrors(data.errors);
 
         })
-      console.log('spot', spot)
 
     } else if (editSpot) {
       spot = await dispatch(updateSpot(payload, spotId))

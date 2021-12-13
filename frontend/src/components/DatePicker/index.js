@@ -9,7 +9,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default function TableDatePicker({ spotId, userId, spot, owner }) {
   const dispatch = useDispatch();
-console.log('owner', owner)
 
   let day = new Date()
   day.setHours(0, 0, 0, 0)
@@ -25,9 +24,13 @@ console.log('owner', owner)
 
   const bookings = useSelector(state => {
     let bookingArr = []
-    for (let booking in state.booking?.bookingsForSpot) {
-      if (state.booking.bookingsForSpot[booking].spotId === + spotId) {
-        bookingArr.push(state.booking?.bookingsForSpot[booking])
+    let bookingObj = {}
+
+    bookingObj = { ...state.booking?.bookingsForSpot, ...state.booking }
+
+    for (let booking in bookingObj) {
+      if (bookingObj[booking]?.spotId === + spotId) {
+        bookingArr.push(bookingObj[booking])
       }
     }
     return bookingArr
@@ -39,9 +42,8 @@ console.log('owner', owner)
     let bookingObj = {}
 
     bookingObj = { ...state.booking?.bookingsForUser, ...state.booking }
-
     for (let booking in bookingObj) {
-      if (bookingObj[booking]?.spotId && bookingObj[booking]?.spotId === +spotId) {
+      if (bookingObj[booking]?.spotId && bookingObj[booking]?.spotId === +spotId && +bookingObj[booking]?.userId === +userId) {
         bookingArr.push(bookingObj[booking])
       }
     }
@@ -78,13 +80,12 @@ console.log('owner', owner)
     excludeArr.push(exludeObj)
   }
 
+
   bookings.forEach(exluder)
 
   const checkDates = (e) => {
-    // console.log('checkIn', checkIn, 'checkOut', checkOut, checkIn > checkOut)
 
     if (checkIn > checkOut) {
-      // console.log('checkIn greater')
       setErrors([...errors, "Please choose a check-out date that is your check-in date"])
       return
     }
@@ -93,9 +94,7 @@ console.log('owner', owner)
   function isBookingForbidden(start, end) {
     let forbidden = false
     excludeArr.forEach(date => {
-      //  console.log('is it true', start < end)
-      //  console.log('date', date)
-      //  console.log('start', start, '!!!!!!!!!!!!!!!!!!! date.start', date.start, start < date.start)
+      //  ('is it true', start < end)
       if (start < date.start && date.start < end) {
         forbidden = true
       }
@@ -106,7 +105,6 @@ console.log('owner', owner)
 
   const handleBook = async (e) => {
     e.preventDefault()
-    // console.log('checkIn', checkIn, 'checkOut', checkOut, checkIn > checkOut)
     // 
     if (!checkIn) {
       setErrors([...errors, "Your booking contains forbidden dates! Please provide a valid check-in date. Check the Calendar to make sure your choosen date is available."])
@@ -152,74 +150,76 @@ console.log('owner', owner)
 
   const handleDeleteBooking = async (e) => {
     let bookingId = e.target.id
-    // console.log('bookingId', bookingId)
     await dispatch(deleteBooking(bookingId))
   }
 
   if (!bookings) {
     return null;
   }
-  // console.log('excludeArr',excludeArr)
   return (
     <div className="outer-booking">
 
       {!owner &&
 
-      <div className="booking-container">
-        <div className="checkIn-holder">
+        <div className="inner-booking-container">
+          <div className="booking-container">
 
-          <DatePicker
-            className="checkIn"
-            selected={checkIn}
-            selectsStart
-            startDate={checkIn}
-            endDate={checkOut}
-            minDate={new Date()}
-            maxDate={checkOut}
-            checkIn={checkIn}
-            checkOut={checkOut}
-            onChange={date => setCheckIn(date)}
-            placeholderText="Choose a check-in date"
+            <div className="checkIn-holder">
 
-            // excludeDates={[
-            //   new Date('2021-12-25'), new Date('2021-12-26'),
-            //   {
-            //     after: new Date('2021, 12, 20'),
-            //     before: new Date('2021, 12, 23'),
-            //   },
-            // ]}
-            excludeDateIntervals={excludeArr}
+              <DatePicker
+                className="checkIn"
+                selected={checkIn}
+                selectsStart
+                startDate={checkIn}
+                endDate={checkOut}
+                minDate={new Date()}
+                maxDate={checkOut}
+                checkIn={checkIn}
+                checkOut={checkOut}
+                onChange={date => setCheckIn(date)}
+                placeholderText="Choose a check-in date"
 
-
-          // selectsDisabledDaysInRange
-          />
-        </div><div className="between-dates">  -  </div>
-        <div className="checkOut-holder">
-
-          <DatePicker
-            className="checkOut"
-            selected={checkOut}
-            startDate={checkIn}
-            minDate={checkIn}
-            endDate={checkOut}
-            selectsEnd
-            checkIn={checkIn}
-            checkOut={checkOut}
-            minDate={checkIn}
-            onChange={date => setCheckOut(date)}
-            placeholderText="...and stay a while!"
-            excludeDateIntervals={excludeArr}
+                // excludeDates={[
+                //   new Date('2021-12-25'), new Date('2021-12-26'),
+                //   {
+                //     after: new Date('2021, 12, 20'),
+                //     before: new Date('2021, 12, 23'),
+                //   },
+                // ]}
+                excludeDateIntervals={excludeArr}
 
 
+              // selectsDisabledDaysInRange
+              />
+            </div><div className="between-dates">  -  </div>
+            <div className="checkOut-holder">
 
-          // excludeDates={[new Date('2021-12-25'), new Date('2021-12-26'),]}
-          // selectsDisabledDaysInRange
+              <DatePicker
+                className="checkOut"
+                selected={checkOut}
+                startDate={checkIn}
+                minDate={checkIn}
+                endDate={checkOut}
+                selectsEnd
+                checkIn={checkIn}
+                checkOut={checkOut}
+                minDate={checkIn}
+                onChange={date => setCheckOut(date)}
+                placeholderText="...and stay a while!"
+                excludeDateIntervals={excludeArr}
 
-          />
-        </div>
-        <button className="small-btn" onClick={handleBook}>Book this lair</button>
 
-      </div >
+
+              // excludeDates={[new Date('2021-12-25'), new Date('2021-12-26'),]}
+              // selectsDisabledDaysInRange
+
+              />
+            </div>
+
+          </div>
+          <button className="small-btn" onClick={handleBook}>Book this lair</button>
+
+        </div >
       }
       <div className="booking-erros-and-list">
 
@@ -233,7 +233,7 @@ console.log('owner', owner)
         <ul className="bookings-on-spot-list">
           {bookingsForUserForSpot.map((booking) => <li
             key={booking.id} className="booking-for-customer">{`You have a booking at this lair for ${booking.checkIn} through ${booking.checkOut}`}
-            <button id={booking.id} onClick={handleDeleteBooking} className="small-btn small-red-btn">Delete</button>
+            <button id={booking.id} onClick={handleDeleteBooking} className="small-btn small-red-btn">Cancel</button>
           </li>)}
         </ul>
 
@@ -255,10 +255,10 @@ console.log('owner', owner)
                     </tr>
                     {bookings.map((booking) => (
                       <tr key={booking.id} className="bookings-row">
-                        <td>{booking.User.username}</td>
+                        <td>{booking.User?.username}</td>
                         <td>{booking.checkIn}</td>
                         <td>{booking.checkOut}</td>
-                        <td><button id={booking.id} onClick={handleDeleteBooking} className="small-btn small-red-btn">Delete</button></td>
+                        <td><button id={booking.id} onClick={handleDeleteBooking} className="small-btn small-red-btn">Cancel</button></td>
                       </tr>
 
                     ))}

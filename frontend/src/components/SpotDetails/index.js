@@ -61,7 +61,6 @@ function SpotDetailer() {
 
   }
 
-console.log('ownersdfasfsadf', owner)
 
   if (!spot) {
     return null;

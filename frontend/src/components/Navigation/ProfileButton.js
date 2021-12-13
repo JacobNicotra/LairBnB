@@ -8,12 +8,14 @@ import * as sessionActions from '../../store/session';
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
+    document.getElementById("LairBnB").classList.add('display-none');
+
   };
-  
+
   useEffect(() => {
     if (!showMenu) return;
 
@@ -22,7 +24,7 @@ function ProfileButton({ user }) {
     };
 
     document.addEventListener('click', closeMenu);
-  
+
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
@@ -34,17 +36,22 @@ function ProfileButton({ user }) {
   return (
     <div className="profile-container">
       <button className="btn profile-btn" onClick={openMenu}>
-        <div  id="profile"><i className="fas fa-user-alt"></i></div>
-        
+        <div id="profile"><i className="fas fa-user-alt"></i></div>
+
       </button>
       {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li>
+        <div className="profile-dropdown" id="prof-drop">
+          <div id="profile-info">
+
+            <div className="pro-inf">{user.username}</div>
+            <div className="pro-inf">{user.email}</div>
+
+          </div>
+
+          <div>
             <button className="small-btn small-red-btn" onClick={logout}>Log Out</button>
-          </li>
-        </ul>
+          </div>
+        </div>
       )}
     </ div>
   );

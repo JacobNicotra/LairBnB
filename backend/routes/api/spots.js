@@ -27,7 +27,7 @@ router.get('/:id/bookings/', asyncHandler(async function (req, res) {
       model: User
     }
   });
-  console.log('bookings ', bookings)
+
   
   return res.json(bookings);
 }));
@@ -43,8 +43,8 @@ router.post(
     // const username = user.username
     // booking.dataValues.User = { username }
     const booking = await Booking.create(req.body);
-
- 
+    let user = await User.findByPk(booking.userId)
+    booking.dataValues.User = user
     return res.json(booking);
   })
 );

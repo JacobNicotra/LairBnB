@@ -589,7 +589,7 @@ justify-content: center;
   justify-content: center;
   align-items: center;
   margin-top: 15px;
-  margin-left: 114px;
+
 }
 
 .booking-container  > * {
@@ -676,4 +676,56 @@ body {
 }
 .booking-for-customer > button {
   margin-top: 1.5px;
+}
+
+.nav-button-list {
+  padding:0 18px 0 18px;
+}
+
+.inner-booking-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.inner-booking-container > button {
+ margin-top: 10px;
+}
+
+#LairBnB {
+  /* padding-right: 60px; */
+}
+
+.profile-dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  background-color: #272838;
+  margin-left: 0;
+  margin-right: 0;
+
+  color: white;
+  border-radius: 9px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.pro-inf {
+  color: white;
+
+}
+
+#prof-drop{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 79.3px;
+}
+
+.display-none {
+  display: none;
+  color: white;
 }

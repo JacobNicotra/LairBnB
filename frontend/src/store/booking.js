@@ -42,7 +42,6 @@ export const createBooking = (data) => async (dispatch) => {
   const spotId = data.spotId
   // const startDate = data.startDate
   // const endDate = data.endDate
-  // console.log('data', data)
 
   const response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
     method: 'POST',
@@ -58,7 +57,6 @@ export const createBooking = (data) => async (dispatch) => {
 
 export const getBookings = (spotId) => async (dispatch) => {
 
-  // console.log('data', spotId) 
 
   const response = await csrfFetch(`/api/spots/${spotId}/bookings`);
 
@@ -72,7 +70,6 @@ return list
 
 export const getBookingsForUser = (userId,) => async (dispatch) => {
 
-  // console.log('data', spotId) 
 
   const response = await csrfFetch(`/api/users/${userId}/bookings`);
 
@@ -85,7 +82,6 @@ export const getBookingsForUser = (userId,) => async (dispatch) => {
     //     bookingsForUserArr.push(bookingsForUser[booking])
     //   }
     // }
-    // console.log('response', bookingsForUserArr)
     
     dispatch(loadBookingsForUser(bookingsForUser, userId));
     
@@ -136,7 +132,6 @@ const bookingReducer = (state = initialState, action) => {
     case LOAD_ITEMS: {
 
       const newBookings = {};
-      // console.log('ACTION LIST', action.list)
       action.bookings.forEach((booking) => {
         newBookings[booking.id] = booking;
       });
@@ -155,7 +150,6 @@ const bookingReducer = (state = initialState, action) => {
 
 
       const newBookingsForUser = {};
-      // console.log('ACTION LIST', action.list)
       action.bookingsForUser.forEach((booking) => {
         newBookingsForUser[booking.id] = booking;
       });
@@ -171,10 +165,8 @@ const bookingReducer = (state = initialState, action) => {
       return newState
     }
     case LOAD_ITEMS: {
-      // console.log('in load for booking')
 
       const newBookings = {};
-      // console.log('ACTION LIST', action.list)
       action.bookings.forEach((booking) => {
         newBookings[booking.id] = booking;
       });
@@ -217,7 +209,6 @@ const bookingReducer = (state = initialState, action) => {
     case DELETE_ONE_BOOKING: {
       const newState = { ...state }
 
-      // console.log('DELETE_ONE_BOOKING state at bookig', newState[action.booking?.bookingsForUser.id])
     
 
       delete newState[action.booking.id]

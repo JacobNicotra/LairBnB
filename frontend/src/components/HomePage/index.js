@@ -44,8 +44,8 @@ function EditForm() {
         <img onClick={() => handleSubmit('Stannis Baratheon')} src={baratheon} alt="baratheon" />
         <img onClick={() => handleSubmit('Oberyn Martell')} src={martell} alt="martell" />
       </span>
-      <h3 id="welcome-text3">To make a booking, or list your own spot, log in.</h3>
-      <h3> If you do not have an acount, you can sign up or choose a banner above to continue as a guest user</h3>
+      <h3 id="welcome-text3">To make a booking, or list your own lair, log in.</h3>
+      <h3 id="welcome-text4"> If you do not have an acount, you can sign up or choose a banner above to continue as a guest user</h3>
 
     </ main>
 
