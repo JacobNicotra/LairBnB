@@ -1,4 +1,3 @@
-// frontend/src/store/session.js
 import { csrfFetch } from './csrf';
 
 const SET_USER = 'session/setUser';
@@ -29,15 +28,14 @@ export const login = (user) => async (dispatch) => {
   const data = await response.json();
   dispatch(setUser(data.user));
   return response;
-}; //  to test: window.store.dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password' }))
-//Example Session Actions and Reducer
+}; 
 
 export const restoreUser = () => async dispatch => {
   const response = await csrfFetch('/api/session');
   const data = await response.json();
   dispatch(setUser(data.user));
   return response;
-}; // test: window.store.dispatch(window.sessionActions.restoreUser());
+}; 
 
 export const signup = (user) => async (dispatch) => {
   const { username, email, password } = user;
@@ -52,11 +50,7 @@ export const signup = (user) => async (dispatch) => {
   const data = await response.json();
   dispatch(setUser(data.user));
   return response;
-}; // test: //window.store.dispatch(window.sessionActions.signup({
-//   username: 'NewUser',
-//   email: 'new@user.io',
-//   password: 'password'
-// }));
+}; 
 
 export const logout = () => async (dispatch) => {
   const response = await csrfFetch('/api/session', {
@@ -64,7 +58,7 @@ export const logout = () => async (dispatch) => {
   });
   dispatch(removeUser());
   return response;
-}; // test: window.store.dispatch(window.sessionActions.logout());
+}; 
 
 
 

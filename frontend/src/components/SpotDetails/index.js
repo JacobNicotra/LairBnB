@@ -87,7 +87,6 @@ function SpotDetailer() {
         }</ul></div>
       <div className="desc-SpotDetails" >{spot.description}</div>
       <div className="user-SpotDetails" >Hosted By: {spot.User.username}</div>
-      {/* <div>pictues and thins</div> */}
       <div>{(owner && <span>
         <div className="edit-delete">
           <EditFormModal />

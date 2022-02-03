@@ -1,4 +1,3 @@
-// frontend/src/store/session.js
 import { csrfFetch } from './csrf';
 
 const LOAD_ITEMS = 'spots/LOAD_ITEMS';
@@ -34,14 +33,10 @@ const removeBooking = (booking) => ({
   booking
 });
 
-// {spotId: '1', startDate: Sat Dec 11 2021 22:55:23 GMT-0600 (Central Standard Time), 
-// endDate: Tue Dec 14 2021 22: 55: 23 GMT - 0600(Central Standard Time)}
 
 export const createBooking = (data) => async (dispatch) => {
 
   const spotId = data.spotId
-  // const startDate = data.startDate
-  // const endDate = data.endDate
 
   const response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
     method: 'POST',
@@ -51,7 +46,7 @@ export const createBooking = (data) => async (dispatch) => {
   if (response.ok) {
     const booking = await response.json();
     dispatch(addOneBooking(booking));
-    return booking; // use jquery datepicker
+    return booking; 
   }
 };
 
@@ -62,7 +57,7 @@ export const getBookings = (spotId) => async (dispatch) => {
 
   if (response.ok) {
     const list = await response.json();
-    // console.group('list', list)
+
     dispatch(load(list, spotId));
 return list
   }
@@ -76,12 +71,6 @@ export const getBookingsForUser = (userId,) => async (dispatch) => {
   if (response.ok) {
     const bookingsForUser = await response.json();
 
-    // let bookingsForUserArr = []
-    // for (let booking in bookingsForUser) {
-    //   if (bookingsForUser[booking].spotId === +spotId) {
-    //     bookingsForUserArr.push(bookingsForUser[booking])
-    //   }
-    // }
     
     dispatch(loadBookingsForUser(bookingsForUser, userId));
     
@@ -101,18 +90,7 @@ export const deleteBooking = bookingId => async (dispatch) => {
   }
 }
 
-// export const updateSpot = (data, spotId) => async (dispatch) => {
-//   const response = await csrfFetch(`/api/spots/${spotId}`, {
-//     method: 'put',
-//     body: JSON.stringify(data)
-//   });
 
-//   if (response.ok) {
-//     const spot = await response.json();
-//     dispatch(addOneBooking(spot));
-//     return spot;
-//   }
-// };
 
 const initialState = {
   list: [],
@@ -135,10 +113,7 @@ const bookingReducer = (state = initialState, action) => {
       action.bookings.forEach((booking) => {
         newBookings[booking.id] = booking;
       });
-      // const newState = {
-      //   ...state,
-      //   ...newBookings
-      // }
+     
       const newState = {
         ...state,
         bookingsForSpot: newBookings
@@ -153,10 +128,7 @@ const bookingReducer = (state = initialState, action) => {
       action.bookingsForUser.forEach((booking) => {
         newBookingsForUser[booking.id] = booking;
       });
-      // const newState = {
-      //   ...state,
-      //   ...newBookingsForUser
-      // }
+      
       const newState = {
         ...state,
         bookingsForUser: newBookingsForUser

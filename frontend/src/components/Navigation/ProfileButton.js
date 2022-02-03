@@ -1,6 +1,5 @@
 // Follow the instructions here for setting up Font Awesome. The easiest way to connect Font Awesome to your React application is by sharing your email and creating a new kit. The kit should let you copy an HTML <script>. Add this script to the <head> of your frontend/public/index.html file.
 
-// frontend/src/components/Navigation/ProfileButton.js
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';

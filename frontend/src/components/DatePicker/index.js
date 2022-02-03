@@ -105,7 +105,7 @@ export default function TableDatePicker({ spotId, userId, spot, owner }) {
 
   const handleBook = async (e) => {
     e.preventDefault()
-    // 
+    
     if (!checkIn) {
       setErrors([...errors, "Your booking contains forbidden dates! Please provide a valid check-in date. Check the Calendar to make sure your choosen date is available."])
       return
@@ -178,18 +178,7 @@ export default function TableDatePicker({ spotId, userId, spot, owner }) {
                 checkOut={checkOut}
                 onChange={date => setCheckIn(date)}
                 placeholderText="Choose a check-in date"
-
-                // excludeDates={[
-                //   new Date('2021-12-25'), new Date('2021-12-26'),
-                //   {
-                //     after: new Date('2021, 12, 20'),
-                //     before: new Date('2021, 12, 23'),
-                //   },
-                // ]}
                 excludeDateIntervals={excludeArr}
-
-
-              // selectsDisabledDaysInRange
               />
             </div><div className="between-dates">  -  </div>
             <div className="checkOut-holder">
@@ -207,11 +196,6 @@ export default function TableDatePicker({ spotId, userId, spot, owner }) {
                 onChange={date => setCheckOut(date)}
                 placeholderText="...and stay a while!"
                 excludeDateIntervals={excludeArr}
-
-
-
-              // excludeDates={[new Date('2021-12-25'), new Date('2021-12-26'),]}
-              // selectsDisabledDaysInRange
 
               />
             </div>
@@ -275,43 +259,3 @@ export default function TableDatePicker({ spotId, userId, spot, owner }) {
   );
 
 }
-
-{/* <DatePicker
-selected={startDate}
-onChange={onChange}
-startDate={startDate}
-endDate={endDate}
-excludeDates={[addDays(new Date(), 1), addDays(new Date(), 5)]}
-selectsRange
-selectsDisabledDaysInRange
-inline
-/>
-
-
-<DatePicker
-selectsRange={true}
-startDate={startDate}
-endDate={endDate}
-onChange={(update) => {
-  setDateRange(update);
-}}
-isClearable={true}
-/> */}
-
-
-// // filter dates
-// () => {
-//   const [startDate, setStartDate] = useState(null);
-//   const isWeekday = (date) => {
-//     const day = getDay(date);
-//     return day !== 0 && day !== 6;
-//   };
-//   return (
-//     <DatePicker
-//       selected={startDate}
-//       onChange={(date) => setStartDate(date)}
-//       filterDate={isWeekday}
-//       placeholderText="Select a weekday"
-//     />
-//   );
-// };

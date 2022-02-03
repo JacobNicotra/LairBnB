@@ -8,11 +8,6 @@ const spotValidations = require('../../validations/spots');
 
 
 
-// ...
-// const { check } = require('express-validator');
-// const { handleValidationErrors } = require('../../utils/validation');
-// ...
-
 const router = express.Router();
 
 // get bookings for spot
@@ -28,7 +23,6 @@ router.get('/:id/bookings/', asyncHandler(async function (req, res) {
     }
   });
 
-  
   return res.json(bookings);
 }));
 
@@ -39,9 +33,6 @@ router.post(
   // spotValidations.validateCreate,
   asyncHandler(async function (req, res) {
 
-    // const user = await User.findByPk(req.body.userId)
-    // const username = user.username
-    // booking.dataValues.User = { username }
     const booking = await Booking.create(req.body);
     let user = await User.findByPk(booking.userId)
     booking.dataValues.User = user

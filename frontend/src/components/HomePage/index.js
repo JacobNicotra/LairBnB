@@ -24,11 +24,6 @@ function EditForm() {
   };
 
 
-  // useEffect(() => {
-
-  //   return dispatch(sessionActions.login({ credential, password }))
-
-  // }, [credential]);
 
   return (
     <main id="home-page-main">
