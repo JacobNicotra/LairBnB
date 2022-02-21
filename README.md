@@ -52,7 +52,6 @@ While logged in as the owner on the [booking page](https://lairbnb-clone.herokua
 ***
 <br/><br/>
 ## Future Features
-- Puzzle Ratings
-- Puzzle Journey, showing the previous owners of a puzzle in order
-- Drag an drop image uploading via AWS
-- Google Maps API to allow puzzle owners to connect and swap puzzles based on location
+- Lair Ratings by users
+- Video tours of lairs
+- Integration with Google Maps API for location - based browsing
