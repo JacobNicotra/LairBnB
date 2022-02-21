@@ -5,7 +5,9 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import { getSpots, deleteSpot } from '../../store/spot'
+import { createBooking } from '../../store/booking'
 import EditFormModal from '../EditFormModal'
+import TableDatePicker from '../DatePicker'
 
 import coin from '../../images/coin.png'
 
@@ -37,21 +39,16 @@ function SpotDetailer() {
 
   useEffect(() => {
 
-
     dispatch(getSpots());
 
   }, [dispatch]);
 
   useEffect(() => {
 
-
     if (userId && userId === spot?.userId) {
       return setOwner(true)
     } else setOwner(false)
-  }, [dispatch, userId, stater.spot, spot?.userId]);
-
-
-
+  }, [userId, stater.spot, spot?.userId]);
 
 
   const handleDelete = async (e) => {
@@ -63,7 +60,6 @@ function SpotDetailer() {
 
 
   }
-
 
 
   if (!spot) {
@@ -97,6 +93,12 @@ function SpotDetailer() {
           <EditFormModal />
           <button className="small-red-btn small-btn" onClick={handleDelete}>Delete</button>
         </div>
+      </span>
+      )}  </div>
+      <div>{(<span>
+
+        <TableDatePicker spotId={spotId} userId={userId} spot={spot} owner={owner} />
+
       </span>
       )}  </div>
 

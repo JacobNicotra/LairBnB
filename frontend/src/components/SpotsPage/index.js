@@ -23,7 +23,7 @@ function SpotBrowser() {
     <main id="spots-page" className="spots-page-main">
       <ul>
         {spots.map((spot) => {
-          if (spot.id) {
+          if (spot?.id) {
             
             return (
               <li className="spot-tile tile-1" key={spot.id}> <NavLink to={`/spot/${spot.id}`} >

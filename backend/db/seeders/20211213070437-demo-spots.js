@@ -6,7 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert('Spots', [
       {
         title: 'Weekend Getaway near Highgarden',
-        description: 'Enjoy a quaint cottage in the countryside.',
+        description: 'Enjoy a quaint cottage in the countryside. Banitry is minimal this year, so relax!',
         userId: 6,
         price: 139
       },

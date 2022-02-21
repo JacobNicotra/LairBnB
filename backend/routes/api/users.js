@@ -2,7 +2,7 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Booking } = require('../../db/models');
 
 // ...
 const { check } = require('express-validator');
@@ -32,6 +32,20 @@ const validateSignup = [
 ];
 
 
+// get bookings for user
+router.get('/:id/bookings', asyncHandler(async function (req, res) {
+  const userId = +req.params.id
+
+  const bookings = await Booking.findAll({
+    where: {
+      userId
+    }
+  });
+  return res.json(bookings);
+}));
+
+
+
 // Sign up
 router.post(
   '/',
@@ -47,5 +61,7 @@ router.post(
     });
   }),
 );
+
+
 
 module.exports = router;

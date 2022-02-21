@@ -85,16 +85,34 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
 
     }
 
+    let titleBad = false;
+    let descBad = false;
+    let priceBad = false;
+
+    setErrors([])
+
+    let tempErrors = []
     if (!title.length) {
-      return setErrors(["Please include a title."])
-    }
-    if (!description.length) {
-      return setErrors(["Please include a description."])
+      tempErrors.push("Please include a title.")
+      return setErrors(tempErrors)
     }
 
     if (!price > 0) {
-      return setErrors(["Please include a price."])
+      tempErrors.push("Please include a price.")
+
+      return setErrors(tempErrors)
     }
+
+    if (!description.length) {
+      tempErrors.push("Please include a description.")
+      return setErrors(tempErrors)
+    }
+
+    // if (titleBad) setErrors([...errors, "Please include a title."])
+    // if (titleBad) setErrors([...errors, "Please include a title."])
+    // if (titleBad) setErrors([...errors, "Please include a title."])
+
+    setErrors([])
 
     for (let pic in pics) {
       if (pics[pic] === '') delete pics[pic]
@@ -148,15 +166,15 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
   }
   let picInputs = [];
   for (let pic in pics) {
- 
+
     picInputs.push(<span key={pic}>
       <div className="pic-input-container">
-      <input
-        type="url"
-        id={`${pic}`}
-        placeholder="Picture"
-        value={pics[pic]}
-        onChange={picUpdater}
+        <input
+          type="url"
+          id={`${pic}`}
+          placeholder="Picture"
+          value={pics[pic]}
+          onChange={picUpdater}
         />
         <button className="small-btn small-red-btn" id={`${+pic + 1}`} onClick={handleDeletePicInput}>Delete</button>
       </div>
@@ -165,9 +183,9 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
   return (
     <section className="new-form-holder centered middled container">
       <form onSubmit={handleSubmit} className="form-control spot-form">
-        <ul className="create-spot-error-container">
+        {errors.length > 0 && <ul className="create-spot-error-container error-holder">
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
+        </ul>}
         <input
           type="text"
           placeholder="Title"
@@ -192,10 +210,10 @@ const CreatSpotForm = ({ editSpot, newSpot }) => {
         <div className="pic-holder">{
           picInputs
         }
-          <button className="small-btn add-pic" onClick={updateNumPics}>{picInputCounter === 0 ? 'Add a Picture' : 'Add Another Picture'}</button>
         </div>
-
+        <button className="small-btn add-pic" onClick={updateNumPics}>{picInputCounter === 0 ? 'Add a Picture' : 'Add Another Picture'}</button>
         <button className="small-btn" type="submit">{newSpot ? "Create new Spot!" : "Update this Spot!"}</button>
+
       </form>
     </section>
   );
