@@ -49,7 +49,7 @@ function ProfileButton({ user }) {
           </div>
 
           <div>
-            <button className="small-btn small-red-btn" onClick={logout}>Log Out</button>
+            <button className="small-btn small-red-btn" onClick={logout}>Logout</button>
           </div>
         </div>
       )}

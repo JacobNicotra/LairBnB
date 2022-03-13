@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
     sessionLinks = (
       <>
         <LoginFormModal />
-        <NavLink className="btn" to="/signup">Sign Up</NavLink>
+        <NavLink className="btn nav-btn" to="/signup">Sign Up</NavLink>
       </>
     );
   }
@@ -28,16 +28,16 @@ function Navigation({ isLoaded }) {
     <ul className="nav-button-list" >
 
       <li>
-       <NavLink  className="btn" exact to="/">Home</NavLink>
+       <NavLink  className="btn nav-btn" exact to="/">Home</NavLink>
         {isLoaded && sessionLinks}
       </li>
 
       <li id="LairBnB"> <img id="dragon" src={ dragon } alt="dragon"/> LairBnB </li>
 
       <li>
-        <NavLink className="btn" exact to="/spots">Lairs</NavLink>
+        <NavLink className="btn nav-btn" exact to="/spots">View Lairs</NavLink>
     
-        <NavLink className="btn" exact to="/spots/new">List Your Lair</NavLink>
+        <NavLink className="btn nav-btn" exact to="/spots/new">List a Lair</NavLink>
       </li>
 
 

@@ -12,6 +12,11 @@ justify-content:space-between;
 .profile-dropdown {
   display: flex;
   flex-direction: column;
+  position: absolute;
+  left: 5px;
+  top: 65px;
+  width: fit-content;
+  height: 53px
 }
 
 /* .profile-container{

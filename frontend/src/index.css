@@ -230,6 +230,16 @@ body {
   height :23px;
 }
 
+.nav-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 0;
+  width: 90px;
+  height: 44px;
+}
+
 .small-btn {
   display: inline-block;
   background: #272838;
@@ -529,6 +539,11 @@ margin: 0 5px 10px 0
 
 }
 
+#banner-container > img:hover {
+  cursor: pointer;
+
+}
+
 #banner-container {
 display: inline-block;
 text-align: center;
@@ -722,7 +737,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  height: 79.3px;
+  height: 53px;
 }
 
 .display-none {
