@@ -1,5 +1,4 @@
-# Perfect Fit
-[Live Link](https://lairbnb-clone.herokuapp.com/)
+# LairBnB
 
 [Wiki](https://github.com/JacobNicotra/LairBnB)
 
